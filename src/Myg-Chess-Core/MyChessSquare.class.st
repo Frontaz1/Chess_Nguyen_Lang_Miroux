@@ -91,12 +91,8 @@ MyChessSquare >> contents: aPiece [
 	| text |
 	contents := aPiece.
 
-	text := contents
-		        ifNil: [
-			        color isBlack
-				        ifFalse: [ 'z' ]
-				        ifTrue: [ 'x' ] ]
-		        ifNotNil: [ contents renderPieceOn: self ].
+	text := contents renderPieceOn: self.
+	
 	piece text: (text asRopedText
 			 fontSize: 48;
 			 foreground: self foreground;
@@ -111,8 +107,8 @@ MyChessSquare >> down [
 
 { #category : 'asd' }
 MyChessSquare >> emptyContents [
-	
-	self contents: nil
+	"Vide la case, on la remplace avec une NilPiece"
+	self contents: MyNilPiece new.
 ]
 
 { #category : 'accessing' }
@@ -132,7 +128,7 @@ MyChessSquare >> foreground [
 { #category : 'testing' }
 MyChessSquare >> hasPiece [
 	
-	^ contents isNil not
+	^ contents isPiece
 ]
 
 { #category : 'highlighting' }
@@ -166,8 +162,10 @@ MyChessSquare >> initialize [
 	self
 		background: Color white;
 		geometry: BlSquareGeometry new.
-
-	self addEventHandlerOn: BlClickEvent do: [ :e | self click ]
+		
+	self addEventHandlerOn: BlClickEvent do: [ :e | self click ].
+	"Chaque square a au moins une NilPiece pour éviter nil"
+	contents := MyNilPiece new.
 ]
 
 { #category : 'accessing' }
