@@ -65,3 +65,18 @@ MyBishopTests >> testMovesWithSameColorObstacle [
 			(#( f5 f3 g2 h1 d5 c6 b7 a8 d3 c2 b1 ) collect: [ :name |
 				 board at: name ])
 ]
+
+{ #category : 'tests' }
+MyBishopTests >> testRenderBishop [
+	"render bishop according to its colour
+	 must render 'B' if it is a white bishop
+	 must render 'b' if it is a black bishop"
+
+	| whiteBishop blackBishop aSquare |
+	whiteBishop := MyBishop white.
+	blackBishop := MyBishop black.
+	
+	aSquare := MyChessSquare new.
+	self assert: (aSquare renderPiece: whiteBishop) equals: 'B'.
+	self assert: (aSquare renderPiece: blackBishop ) equals: 'b'.
+]
