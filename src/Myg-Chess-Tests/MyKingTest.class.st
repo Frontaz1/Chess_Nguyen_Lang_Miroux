@@ -30,3 +30,18 @@ MyKingTest >> testIsNotCheckBySameColorRook [
 
 	self deny: king isInCheck
 ]
+
+{ #category : 'tests' }
+MyKingTest >> testRenderKing [
+	"render king according to its colour
+	 must render 'K' if it is a white king
+	 must render 'k' if it is a black king"
+
+	| whiteKing blackKing aSquare |
+	whiteKing := MyKing white.
+	blackKing := MyKing black.
+	
+	aSquare := MyChessSquare new.
+	self assert: (aSquare renderPiece: whiteKing) equals: 'K'.
+	self assert: (aSquare renderPiece: blackKing ) equals: 'k'.
+]
