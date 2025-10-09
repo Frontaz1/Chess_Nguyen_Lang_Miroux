@@ -16,3 +16,10 @@ MyNilPiece >> renderPieceOn: aSquare [
     ^ aSquare color isBlack 
 					ifTrue: ['x'] ifFalse: ['z'].
 ]
+
+{ #category : 'rendering' }
+MyNilPiece >> targetSquaresLegal: aBoolean [
+	"//A améliorer"
+	"Return une liste vide pour éviter de lever une exception"
+	^ {  }
+]
