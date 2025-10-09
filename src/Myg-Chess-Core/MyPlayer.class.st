@@ -54,7 +54,7 @@ MyPlayer >> king [
 { #category : 'accessing' }
 MyPlayer >> pieces [
 
-	^ game pieces select: [ :p | p notNil and: [ p color = self color ] ]
+	^ game pieces select: [ :p | p isPiece and: [ p color = self color ] ]
 ]
 
 { #category : 'playing' }
