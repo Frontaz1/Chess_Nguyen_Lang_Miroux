@@ -6,16 +6,49 @@ Class {
 }
 
 { #category : 'tests' }
-MyKnightTest >> testRenderKnight [
+MyKnightTest >> testRenderBlackKnightOnBlackSquare [ 
 	"render knight according to its colour
-	 must render 'N' if it is a white knight
-	 must render 'n' if it is a black knight"
+	 must render 'm' if it is a black knight on a black square"
 
-	| whiteKnight blackKnight aSquare |
-	whiteKnight := MyKnight white.
+	| blackKnight aSquare |
 	blackKnight := MyKnight black.
 	
-	aSquare := MyChessSquare new.
+	aSquare := MyChessSquare color: MyBlackSquare new.
+	self assert: (aSquare renderPiece: blackKnight) equals: 'm'.
+]
+
+{ #category : 'tests' }
+MyKnightTest >> testRenderBlackKnightOnWhiteSquare [ 
+	"render knight according to its colour
+	 must render 'M' if it is a black knight on a hite square"
+
+	| blackKnight aSquare |
+	blackKnight := MyKnight black.
+	
+	aSquare := MyChessSquare color: MyWhiteSquare new.
+	self assert: (aSquare renderPiece: blackKnight) equals: 'M'.
+]
+
+{ #category : 'tests' }
+MyKnightTest >> testRenderWhiteKnightOnABlackSquare [
+	"render knight according to its colour
+	 must render 'n' if it is a white knight on a black square"
+
+	| whiteKnight aSquare |
+	whiteKnight := MyKnight white.
+	
+	aSquare := MyChessSquare color: MyBlackSquare new.
+	self assert: (aSquare renderPiece: whiteKnight) equals: 'n'.
+]
+
+{ #category : 'tests' }
+MyKnightTest >> testRenderWhiteKnightOnAWhiteSquare [
+	"render knight according to its colour
+	 must render 'N' if it is a white knight on a white square"
+
+	| whiteKnight aSquare |
+	whiteKnight := MyKnight white.
+	
+	aSquare := MyChessSquare color: MyWhiteSquare new.
 	self assert: (aSquare renderPiece: whiteKnight) equals: 'N'.
-	self assert: (aSquare renderPiece: blackKnight) equals: 'n'.
 ]
