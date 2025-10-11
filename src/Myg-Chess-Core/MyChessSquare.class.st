@@ -183,7 +183,7 @@ MyChessSquare >> name [
 MyChessSquare >> name: aString [
 
 	name := aString.
-	label text: (name asRopedText foreground: color negated)
+	label text: (name asRopedText foreground: color asColor negated)
 ]
 
 { #category : 'printing' }
@@ -198,10 +198,8 @@ MyChessSquare >> printOn: aStream [
 
 { #category : 'rendering' }
 MyChessSquare >> renderBishop: aPiece [
-	"a white bishop is 'B' and a black bishop is 'b'"
-	^ aPiece isWhite
-		  ifTrue:[ 'B' ]
-		  ifFalse: [ 'b' ]
+	"acording to the color of the square, render the bishop"
+	^ self color renderBishopOnSquare: aPiece
 ]
 
 { #category : 'rendering' }
