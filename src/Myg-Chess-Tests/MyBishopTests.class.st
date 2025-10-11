@@ -67,16 +67,49 @@ MyBishopTests >> testMovesWithSameColorObstacle [
 ]
 
 { #category : 'tests' }
-MyBishopTests >> testRenderBishop [
+MyBishopTests >> testRenderBlackBishopOnBlackSquare [
 	"render bishop according to its colour
-	 must render 'B' if it is a white bishop
-	 must render 'b' if it is a black bishop"
+	 must render 'v' if it is a black bishop on a black square"
 
-	| whiteBishop blackBishop aSquare |
-	whiteBishop := MyBishop white.
+	| blackBishop aSquare |
 	blackBishop := MyBishop black.
 	
-	aSquare := MyChessSquare new.
-	self assert: (aSquare renderPiece: whiteBishop) equals: 'B'.
-	self assert: (aSquare renderPiece: blackBishop ) equals: 'b'.
+	aSquare := MyChessSquare color: MyBlackSquare new.
+	self assert: (aSquare renderPiece: blackBishop ) equals: 'v'.
+]
+
+{ #category : 'tests' }
+MyBishopTests >> testRenderBlackBishopOnWhiteSquare [
+	"render bishop according to its colour
+	 must render 'V' if it is a black bishop on a white square"
+
+	| blackBishop aSquare |
+	blackBishop := MyBishop black.
+	
+	aSquare := MyChessSquare color: MyWhiteSquare new.
+	self assert: (aSquare renderPiece: blackBishop ) equals: 'V'.
+]
+
+{ #category : 'tests' }
+MyBishopTests >> testRenderWhiteBishopOnBlackSquare [
+	"render bishop according to its colour
+	 must render 'b' if it is a white bishop on a black square"
+
+	| whiteBishop aSquare |
+	whiteBishop := MyBishop white.
+	
+	aSquare := MyChessSquare color: MyBlackSquare new.
+	self assert: (aSquare renderPiece: whiteBishop ) equals: 'b'.
+]
+
+{ #category : 'tests' }
+MyBishopTests >> testRenderWhiteBishopOnWhiteSquare [
+	"render bishop according to its colour
+	 must render 'B' if it is a white bishop on a white square"
+
+	| whiteBishop aSquare |
+	whiteBishop := MyBishop white.
+	
+	aSquare := MyChessSquare color: MyWhiteSquare new.
+	self assert: (aSquare renderPiece: whiteBishop ) equals: 'B'.
 ]
