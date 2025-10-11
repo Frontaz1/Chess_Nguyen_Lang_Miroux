@@ -19,7 +19,7 @@ This code has been tested in Pharo 12. You can get it by installing the followin
 
 ```smalltalk
 Metacello new
-	repository: 'https://github.com/Frontaz1/Chess_Nguyen_Lang_Miroux:main';
+	repository: 'github://Frontaz1/Chess_Nguyen_Lang_Miroux:main';
 	baseline: 'MygChess';
 	onConflictUseLoaded;
 	load.
