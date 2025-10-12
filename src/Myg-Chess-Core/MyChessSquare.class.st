@@ -250,16 +250,8 @@ MyChessSquare >> renderQueen: aPiece [
 
 { #category : 'rendering' }
 MyChessSquare >> renderRook: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'T' ]
-				  ifTrue: [ 't' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'R' ]
-				  ifTrue: [ 'r' ] ]
+	"according to the color of the square, render the rook"
+	^ self color renderRookOnSquare: aPiece
 ]
 
 { #category : 'accessing' }

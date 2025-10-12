@@ -17,6 +17,20 @@ MyRook >> renderPieceOn: aSquare [
 ]
 
 { #category : 'rendering' }
+MyRook >> renderRookOnBlackSquare [
+	^ self isWhite
+		ifTrue: [ 'r' ]
+		ifFalse: [ 't' ]
+]
+
+{ #category : 'rendering' }
+MyRook >> renderRookOnWhiteSquare [
+	^ self isWhite
+		ifTrue: [ 'R' ]
+		ifFalse: [ 'T' ]
+]
+
+{ #category : 'rendering' }
 MyRook >> targetSquares [
 
 	^ self upFile , self downFile , self leftFile , self rightFile

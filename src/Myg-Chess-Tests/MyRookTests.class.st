@@ -65,3 +65,51 @@ MyRookTests >> testMovesWithSameColorObstacle [
 			(#( e5 e6 e7 e8 d4 c4 b4 a4 f4 e3 e2 e1 ) collect: [ :name |
 				 board at: name ])
 ]
+
+{ #category : 'tests' }
+MyRookTests >> testRenderBlackRookOnABlackSquare [
+	"render knight according to its colour
+	 must render 't' if it is a black rook on a black square"
+
+	| blackRook aSquare |
+	blackRook := MyRook black.
+	
+	aSquare := MyChessSquare color: MyBlackSquare new.
+	self assert: (aSquare renderPiece: blackRook) equals: 't'.
+]
+
+{ #category : 'tests' }
+MyRookTests >> testRenderBlackRookOnAWhiteSquare [
+	"render knight according to its colour
+	 must render 'T' if it is a black rook on a white square"
+
+	| blackRook aSquare |
+	blackRook := MyRook black.
+	
+	aSquare := MyChessSquare color: MyWhiteSquare new.
+	self assert: (aSquare renderPiece: blackRook) equals: 'T'.
+]
+
+{ #category : 'tests' }
+MyRookTests >> testRenderWhiteRookOnABlackSquare [
+	"render knight according to its colour
+	 must render 'r' if it is a white rook on a black square"
+
+	| whiteRook aSquare |
+	whiteRook := MyRook white.
+	
+	aSquare := MyChessSquare color: MyBlackSquare new.
+	self assert: (aSquare renderPiece: whiteRook) equals: 'r'.
+]
+
+{ #category : 'tests' }
+MyRookTests >> testRenderWhiteRookOnAWhiteSquare [
+	"render knight according to its colour
+	 must render 'R' if it is a white rook on a white square"
+
+	| whiteRook aSquare |
+	whiteRook := MyRook white.
+	
+	aSquare := MyChessSquare color: MyWhiteSquare new.
+	self assert: (aSquare renderPiece: whiteRook) equals: 'R'.
+]

@@ -34,3 +34,8 @@ MyBlackSquare >> renderKingOnSquare: aPiece [
 MyBlackSquare >> renderKnightOnSquare: aPiece [
 	^aPiece renderKnightOnBlackSquare
 ]
+
+{ #category : 'rendering' }
+MyBlackSquare >> renderRookOnSquare: aPiece [
+	^aPiece renderRookOnBlackSquare
+]
