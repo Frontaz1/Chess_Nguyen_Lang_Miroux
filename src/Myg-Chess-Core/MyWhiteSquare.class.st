@@ -36,6 +36,16 @@ MyWhiteSquare >> renderKnightOnSquare: aPiece [
 ]
 
 { #category : 'rendering' }
+MyWhiteSquare >> renderPawnOnSquare: aPiece [
+	^aPiece renderPawnOnWhiteSquare
+]
+
+{ #category : 'rendering' }
+MyWhiteSquare >> renderQueenOnSquare: aPiece [
+	^aPiece renderQueenOnWhiteSquare
+]
+
+{ #category : 'rendering' }
 MyWhiteSquare >> renderRookOnSquare: aPiece [
 	^aPiece renderRookOnWhiteSquare
 ]

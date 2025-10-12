@@ -217,15 +217,7 @@ MyChessSquare >> renderKnight: aPiece [
 { #category : 'rendering' }
 MyChessSquare >> renderPawn: aPiece [
 
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'O' ]
-				  ifTrue: [ 'o' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'P' ]
-				  ifTrue: [ 'p' ] ]
+	^ self color renderPawnOnSquare: aPiece
 ]
 
 { #category : 'rendering' }
@@ -236,16 +228,9 @@ MyChessSquare >> renderPiece: aPiece [
 
 { #category : 'rendering' }
 MyChessSquare >> renderQueen: aPiece [
+	"according to the color of the square, render the queen"
+	^ self color renderQueenOnSquare: aPiece
 
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'W' ]
-				  ifTrue: [ 'w' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'Q' ]
-				  ifTrue: [ 'q' ] ]
 ]
 
 { #category : 'rendering' }

@@ -12,6 +12,20 @@ MyQueen >> renderPieceOn: aSquare [
 ]
 
 { #category : 'rendering' }
+MyQueen >> renderQueenOnBlackSquare [
+	^ self isWhite
+		ifTrue: [ 'q' ]
+		ifFalse: [ 'w' ]
+]
+
+{ #category : 'rendering' }
+MyQueen >> renderQueenOnWhiteSquare [
+	^ self isWhite
+		ifTrue: [ 'Q' ]
+		ifFalse: [ 'W' ]
+]
+
+{ #category : 'rendering' }
 MyQueen >> targetSquaresLegal: aBoolean [
 
 	| likeABishop likeARook |
