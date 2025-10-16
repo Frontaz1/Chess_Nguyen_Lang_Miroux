@@ -23,3 +23,13 @@ MyChessSquareTests >> testEmptyContents [
 	square emptyContents.
 	self assert: square contents class equals: MyNilPiece
 ]
+
+{ #category : 'tests' }
+MyChessSquareTests >> testInitializeSquare [
+"Test to see if the initialization of ChessSquare is good (For the moment only contents of a square is tested)"
+	| square |
+	
+square := MyChessSquare new.
+"Verify that the content of my square is a NilPiece"
+self assert: square contents class equals: MyNilPiece
+]
