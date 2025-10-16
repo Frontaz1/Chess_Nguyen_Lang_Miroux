@@ -33,3 +33,21 @@ square := MyChessSquare new.
 "Verify that the content of my square is a NilPiece"
 self assert: square contents class equals: MyNilPiece
 ]
+
+{ #category : 'tests' }
+MyChessSquareTests >> testSetContentsOnASquare [
+	| square pawn board text|
+	board := MyChessBoard empty.
+	square := MyChessSquare color: MyWhiteSquare new.
+	pawn := MyPawn white.
+	board at: 'e4' put: pawn.
+	square := board at: 'e4'.
+	
+	"The square content is a pawn"
+	square contents: pawn.
+	text := square contents renderPieceOn: self.
+	self assert: square hasPiece.
+	self assert: square contents class equals: MyPawn.
+	"For the moment this line doesn't work"
+	self assert: (square renderPiece: square contents) equals: 'p'.
+]
