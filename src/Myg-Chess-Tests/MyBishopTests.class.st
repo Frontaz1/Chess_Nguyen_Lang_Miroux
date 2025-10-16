@@ -12,6 +12,15 @@ MyBishopTests >> testId [
 ]
 
 { #category : 'tests' }
+MyBishopTests >> testIsPiece [ 
+	"Test if the bishopPiece is a piece"
+	| bishopPiece |
+	
+   bishopPiece := MyBishop new.
+	self assert: (bishopPiece isPiece).
+]
+
+{ #category : 'tests' }
 MyBishopTests >> testMoves [
 
 	| bishop squares board |

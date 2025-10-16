@@ -6,6 +6,16 @@ Class {
 }
 
 { #category : 'tests' }
+MyKnightTest >> testIsPiece [ 
+	"Test if the knightPiece is a piece"
+	| knightPiece |
+	
+   knightPiece := MyKnight new.
+	self assert: (knightPiece isPiece).
+	
+]
+
+{ #category : 'tests' }
 MyKnightTest >> testRenderBlackKnightOnBlackSquare [ 
 	"render knight according to its colour
 	 must render 'm' if it is a black knight on a black square"

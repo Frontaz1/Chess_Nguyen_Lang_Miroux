@@ -32,6 +32,15 @@ MyKingTest >> testIsNotCheckBySameColorRook [
 ]
 
 { #category : 'tests' }
+MyKingTest >> testIsPiece [ 
+	"Test if the kingPiece is a piece"
+	| kingPiece |
+	
+   kingPiece := MyKing new.
+	self assert: (kingPiece isPiece).
+]
+
+{ #category : 'tests' }
 MyKingTest >> testRenderBlackKingOnABlackSquare [
 	"render king according to its colour
 	 must render 'l' if it is a black king on a black square"

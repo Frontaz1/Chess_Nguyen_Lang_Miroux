@@ -6,6 +6,15 @@ Class {
 }
 
 { #category : 'tests' }
+MyPawnTests >> testIsPiece [ 
+	"Test if the pawnPiece is a piece"
+	| pawnPiece |
+	
+   pawnPiece := MyPawn new.
+	self assert: (pawnPiece isPiece).
+]
+
+{ #category : 'tests' }
 MyPawnTests >> testRenderBlackPawnOnABlackSquare [
 	"render pawn according to its colour
 	 must render 'o' if it is a black pawn on a black square"

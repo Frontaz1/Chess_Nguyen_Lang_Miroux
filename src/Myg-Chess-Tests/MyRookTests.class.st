@@ -12,6 +12,15 @@ MyRookTests >> testId [
 ]
 
 { #category : 'tests' }
+MyRookTests >> testIsPiece [ 
+	"Test if the rookPiece is a piece"
+	| rookPiece |
+	
+   rookPiece := MyRook new.
+	self assert: (rookPiece isPiece).
+]
+
+{ #category : 'tests' }
 MyRookTests >> testMoves [
 
 	| rook squares board |
