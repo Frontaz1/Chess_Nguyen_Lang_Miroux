@@ -10,9 +10,7 @@ MyChessSquareTests >> testEmptyContents [
 
 	| square pawn board|
 	board := MyChessBoard empty.
-	square := MyChessSquare color: MyWhiteSquare new.
 	pawn := MyPawn white.
-	board at: 'e4' put: pawn.
 	square := board at: 'e4'.
 	
 	"The square content is a pawn"
