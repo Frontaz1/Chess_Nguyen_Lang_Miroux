@@ -23,6 +23,7 @@ Class {
 		'movesLabel',
 		'moveCountLabel',
 		'moves',
+		'promotePawn',
 		'dsp'
 	],
 	#category : 'Myg-Chess-Core',
@@ -173,4 +174,9 @@ MyChessGame >> recordMovementOf: aPiece to: aSquare [
 	].
 	
 	movesLabel text: movesText
+]
+
+{ #category : 'playing' }
+MyChessGame >> useUIPromotion [
+	self promotePawn: MyUIPromotion new
 ]
