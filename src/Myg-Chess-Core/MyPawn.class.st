@@ -5,6 +5,14 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
+{ #category : 'as yet unclassified' }
+MyPawn >> checkForPromotion [
+    "Promote pawn if it reached the back rank"
+    self shouldBePromoted ifTrue: [
+        self board game promotePawn: self at: square
+    ]
+]
+
 { #category : 'testing' }
 MyPawn >> hasReachedPromotionRank [
     "Check if pawn has reached the promotion rank"
