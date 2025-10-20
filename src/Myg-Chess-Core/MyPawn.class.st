@@ -5,6 +5,14 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
+{ #category : 'testing' }
+MyPawn >> hasReachedPromotionRank [
+    "Check if pawn has reached the promotion rank"
+    ^ self isWhite
+        ifTrue: [square file = $8]
+        ifFalse: [square file = $1]
+]
+
 { #category : 'accessing' }
 MyPawn >> id [
 
@@ -29,6 +37,12 @@ MyPawn >> renderPawnOnWhiteSquare [
 MyPawn >> renderPieceOn: aSquare [ 
 	
 	^ aSquare renderPawn: self
+]
+
+{ #category : 'asserting' }
+MyPawn >> shouldBePromoted [
+    "A pawn should be promoted when it reaches the back rank"
+    ^ self hasReachedPromotionRank
 ]
 
 { #category : 'rendering' }
