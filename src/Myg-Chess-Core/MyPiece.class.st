@@ -37,6 +37,12 @@ MyPiece >> board [
 	^ square board
 ]
 
+{ #category : 'as yet unclassified' }
+MyPiece >> checkForPromotion [
+    "Default: do nothing. Pawns will override this"
+    ^ self
+]
+
 { #category : 'rendering' }
 MyPiece >> collectSquares: aBlock [
 	"run through squares"
@@ -169,7 +175,10 @@ MyPiece >> moveTo: aSquare [
 
 	square emptyContents.
 	square := aSquare.
-	aSquare contents: self
+	aSquare contents: self.
+	
+	"Check for pawn promotion"
+    self checkForPromotion
 ]
 
 { #category : 'rendering' }
