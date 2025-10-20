@@ -23,6 +23,7 @@ Class {
 		'movesLabel',
 		'moveCountLabel',
 		'moves',
+		'promotionPawn',
 		'dsp'
 	],
 	#category : 'Myg-Chess-Core',
@@ -64,7 +65,8 @@ MyChessGame >> initialize [
 
 	moves := OrderedCollection new.
 	whitePlayer := MyPlayer new white game: self.
-	blackPlayer := MyPlayer new black game: self
+	blackPlayer := MyPlayer new black game: self.
+	promotionPawn := MyUIPromotion new
 ]
 
 { #category : 'initialization' }
@@ -146,6 +148,17 @@ MyChessGame >> play [
 			moveCount := moveCount + 1.
 			currentPlayer := whitePlayer ].
 	self checkForMate
+]
+
+{ #category : 'accessing' }
+MyChessGame >> promotionPawn [
+	^ promotionPawn ifNil: [ promotionPawn := MyUIPromotion new ]
+]
+
+{ #category : 'accessing' }
+MyChessGame >> promotionPawn: aStrategy [
+	promotionPawn := aStrategy
+	
 ]
 
 { #category : 'moves' }
