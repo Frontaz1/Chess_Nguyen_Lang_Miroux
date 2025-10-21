@@ -150,6 +150,20 @@ MyChessGame >> play [
 	self checkForMate
 ]
 
+{ #category : 'as yet unclassified' }
+MyChessGame >> promotePawn: aPawn at: aSquare [
+    | pieceClass newPiece |
+    pieceClass := self promotionPawn promotePawn: aPawn.
+    newPiece := pieceClass perform: (aPawn isWhite 
+        ifTrue: [#white] 
+        ifFalse: [#black]).
+    
+    board at: aSquare name put: newPiece.
+    
+    "Record the promotion in moves"
+    self recordPromotion: aPawn to: newPiece at: aSquare
+]
+
 { #category : 'accessing' }
 MyChessGame >> promotionPawn [
 	^ promotionPawn ifNil: [ promotionPawn := MyUIPromotion new ]
