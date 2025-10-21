@@ -23,6 +23,7 @@ Class {
 		'movesLabel',
 		'moveCountLabel',
 		'moves',
+		'promotionPawn',
 		'dsp'
 	],
 	#category : 'Myg-Chess-Core',
@@ -64,7 +65,8 @@ MyChessGame >> initialize [
 
 	moves := OrderedCollection new.
 	whitePlayer := MyPlayer new white game: self.
-	blackPlayer := MyPlayer new black game: self
+	blackPlayer := MyPlayer new black game: self.
+	promotionPawn := MyUIPromotion new
 ]
 
 { #category : 'initialization' }
@@ -148,6 +150,31 @@ MyChessGame >> play [
 	self checkForMate
 ]
 
+{ #category : 'as yet unclassified' }
+MyChessGame >> promotePawn: aPawn at: aSquare [
+    | pieceClass newPiece |
+    pieceClass := self promotionPawn promotePawn: aPawn.
+    newPiece := pieceClass perform: (aPawn isWhite 
+        ifTrue: [#white] 
+        ifFalse: [#black]).
+    
+    board at: aSquare name put: newPiece.
+    
+    "Record the promotion in moves"
+    self recordPromotion: aPawn to: newPiece at: aSquare
+]
+
+{ #category : 'accessing' }
+MyChessGame >> promotionPawn [
+	^ promotionPawn ifNil: [ promotionPawn := MyUIPromotion new ]
+]
+
+{ #category : 'accessing' }
+MyChessGame >> promotionPawn: aStrategy [
+	promotionPawn := aStrategy
+	
+]
+
 { #category : 'moves' }
 MyChessGame >> recordMovementOf: aPiece to: aSquare [
 	"moves add: (MyMove piece: aPiece square: aSquare name)."
@@ -173,4 +200,30 @@ MyChessGame >> recordMovementOf: aPiece to: aSquare [
 	].
 	
 	movesLabel text: movesText
+]
+
+{ #category : 'moves' }
+MyChessGame >> recordPromotion: aPawn to: newPiece at: aSquare [
+    | prefix promotionText movesText |
+    prefix := currentPlayer isWhite
+        ifTrue: [moveCount asString, '.']
+        ifFalse: [''].
+    
+    promotionText := prefix, ' ', aSquare name, '=', newPiece id.
+    moves add: promotionText.
+
+	 movesText := String streamContents: [:stream |
+        | currentLine |
+        currentLine := ''.
+        moves do: [:m |
+            currentLine := currentLine, ' ', m.
+            currentLine size > 20 ifTrue: [
+                stream nextPutAll: currentLine.
+                stream cr.
+                currentLine := ''
+            ]
+        ].
+        stream nextPutAll: currentLine
+    ].
+    movesLabel text: movesText
 ]
