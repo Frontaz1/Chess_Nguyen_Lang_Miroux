@@ -187,3 +187,29 @@ MyChessGame >> recordMovementOf: aPiece to: aSquare [
 	
 	movesLabel text: movesText
 ]
+
+{ #category : 'moves' }
+MyChessGame >> recordPromotion: aPawn to: newPiece at: aSquare [
+    | prefix promotionText movesText |
+    prefix := currentPlayer isWhite
+        ifTrue: [moveCount asString, '.']
+        ifFalse: [''].
+    
+    promotionText := prefix, ' ', aSquare name, '=', newPiece id.
+    moves add: promotionText.
+
+	 movesText := String streamContents: [:stream |
+        | currentLine |
+        currentLine := ''.
+        moves do: [:m |
+            currentLine := currentLine, ' ', m.
+            currentLine size > 20 ifTrue: [
+                stream nextPutAll: currentLine.
+                stream cr.
+                currentLine := ''
+            ]
+        ].
+        stream nextPutAll: currentLine
+    ].
+    movesLabel text: movesText
+]
