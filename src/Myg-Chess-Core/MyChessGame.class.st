@@ -209,7 +209,7 @@ MyChessGame >> recordPromotion: aPawn to: newPiece at: aSquare [
         ifTrue: [moveCount asString, '.']
         ifFalse: [''].
     
-    promotionText := prefix, ' ', aSquare name, '=', newPiece id.
+    promotionText := prefix, ' ', 'P', aSquare name, '=', newPiece id.
     moves add: promotionText.
 
 	 movesText := String streamContents: [:stream |
