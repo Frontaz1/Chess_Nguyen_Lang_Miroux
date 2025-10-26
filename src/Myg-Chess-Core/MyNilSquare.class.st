@@ -5,10 +5,25 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
+{ #category : 'accessing' }
+MyNilSquare >> color [
+	^nil
+]
+
+{ #category : 'accessing' }
+MyNilSquare >> contents [
+	^MyNilPiece new.
+]
+
 { #category : 'instance creation' }
 MyNilSquare >> down [
 	"MyNilSquare don't move"
 	^self
+]
+
+{ #category : 'testing' }
+MyNilSquare >> hasPiece [
+	^true
 ]
 
 { #category : 'instance creation' }
