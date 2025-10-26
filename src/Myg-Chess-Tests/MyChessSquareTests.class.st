@@ -66,3 +66,18 @@ MyChessSquareTests >> testSetContentsOnASquare [
 	"For the moment this line doesn't work"
 	self assert: (square renderPiece: square contents) equals: 'P'.
 ]
+
+{ #category : 'tests' }
+MyChessSquareTests >> testSquarePlusReturnsNilSquareOutsideBoard [
+	| board square result |
+	board := MyChessBoard empty.
+	square := board at: 'h8'.
+
+	"case a droite(hors plateau)"
+	result := square + (1@0).
+	self assert: result class equals: MyNilSquare.
+	
+	"case en haut(hors plateau)"
+	result := square + (0@1).
+	self assert: result class equals: MyNilSquare.
+]
