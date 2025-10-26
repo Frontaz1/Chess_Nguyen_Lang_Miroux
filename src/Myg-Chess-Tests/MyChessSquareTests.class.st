@@ -33,6 +33,14 @@ self assert: square contents class equals: MyNilPiece
 ]
 
 { #category : 'tests' }
+MyChessSquareTests >> testNilSquareContents [
+    | nilSquare |
+    nilSquare := MyNilSquare new.
+
+    self assert: (nilSquare contents isKindOf: MyNilPiece).
+]
+
+{ #category : 'tests' }
 MyChessSquareTests >> testSetContentsOnASquare [
 	| square pawn board text|
 	board := MyChessBoard empty.
