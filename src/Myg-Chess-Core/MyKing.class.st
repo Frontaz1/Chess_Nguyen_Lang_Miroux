@@ -101,7 +101,8 @@ MyKing >> targetSquaresLegal: aBoolean [
 		                     e attackingSquares ].
 
 	^ self basicTargetSquares select: [ :s |
-		  s notNil and: [
+			"shouldStopCollecting pour éviter d'avoir un nilSquare"
+		  (s shouldStopCollecting not) and: [
 			  (threatenedSquares includes: s) not and: [
 				  s hasPiece not or: [ 
 					"The square has an opponent piece"
