@@ -252,6 +252,11 @@ MyChessSquare >> select [
 	self border: Color green
 ]
 
+{ #category : 'asserting' }
+MyChessSquare >> shouldStopCollecting [
+	^ false
+]
+
 { #category : 'highlighting' }
 MyChessSquare >> unhighlightTarget [
 

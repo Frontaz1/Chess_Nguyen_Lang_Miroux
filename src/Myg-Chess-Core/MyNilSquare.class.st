@@ -38,6 +38,11 @@ MyNilSquare >> right [
 	^self
 ]
 
+{ #category : 'asserting' }
+MyNilSquare >> shouldStopCollecting [
+^ true
+]
+
 { #category : 'instance creation' }
 MyNilSquare >> up [
 	"MyNilSquare don't move"

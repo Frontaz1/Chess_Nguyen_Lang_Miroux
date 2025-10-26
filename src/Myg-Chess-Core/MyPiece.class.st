@@ -51,9 +51,9 @@ MyPiece >> collectSquares: aBlock [
 
 { #category : 'rendering' }
 MyPiece >> collectSquares: aBlock legal: shouldBeLegal [
-	"run through squares according to a direction, ignore squares where same colored pieces are on"
+	"run through squares according to a direction, ignore squares where same colored pieces are on or MyNilSquare"
 	^ self collectSquares: aBlock while: [ :aSquare |
-		  aSquare notNil and: [ shouldBeLegal ==> aSquare hasPiece not ] ]
+		  (aSquare shouldStopCollecting) not and: shouldBeLegal ==> aSquare hasPiece not]
 ]
 
 { #category : 'rendering' }
@@ -64,12 +64,18 @@ MyPiece >> collectSquares: collectBlock while: untilBlock [
 
 	"Collect up right"
 	next := square.
-	[ untilBlock value: (next := collectBlock value: next) ]
-		whileTrue: [ targets add: next ].
+	[ true ] whileTrue: [
+        next := collectBlock value: next.
+        "stop le while si on atteint le bord(NilSquare)"
+        (next shouldStopCollecting) ifTrue: [ ^targets ].
 
-	"If we can it the next piece, then add it too"
-	(next notNil and: [ next contents color ~= color ]) ifTrue: [ targets add: next ].
-
+        "If we can it the next piece, then add it too"
+        ((next hasPiece not) or: [ next contents color ~= self color ]) ifTrue: [
+            targets add: next
+        ].
+        "stop si y'a une pièce"
+        (next hasPiece) ifTrue: [ ^targets ].
+    ].
 	^ targets
 ]
 
