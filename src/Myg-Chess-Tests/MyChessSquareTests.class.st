@@ -6,6 +6,17 @@ Class {
 }
 
 { #category : 'tests' }
+MyChessSquareTests >> testCollectSquaresDoesNotLoop [
+	| board bishop squares |
+	board := MyChessBoard empty.
+	board at: 'a1' put: (bishop := MyBishop white).
+
+	squares := bishop downLeftDiagonalLegal: false.
+
+	self assert: squares isEmpty.
+]
+
+{ #category : 'tests' }
 MyChessSquareTests >> testEmptyContents [
 
 	| square pawn board|
