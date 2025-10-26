@@ -41,6 +41,18 @@ MyChessSquareTests >> testNilSquareContents [
 ]
 
 { #category : 'tests' }
+MyChessSquareTests >> testNilSquareDirectionalMethodsReturnSelf [
+
+	| nilSquare |
+	nilSquare := MyNilSquare new.
+	
+	self assert: nilSquare up identicalTo: nilSquare.
+	self assert: nilSquare down identicalTo: nilSquare.
+	self assert: nilSquare left identicalTo: nilSquare.
+	self assert: nilSquare right identicalTo: nilSquare
+]
+
+{ #category : 'tests' }
 MyChessSquareTests >> testSetContentsOnASquare [
 	| square pawn board text|
 	board := MyChessBoard empty.
