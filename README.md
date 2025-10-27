@@ -84,9 +84,18 @@ Questions and ideas that can help you in the process:
 - What are the good and bad parts of them in *this scenario*? Do you understand why?
 
 #### Design decisions
-The idea for the double dispatch was to have a class of square colors and have the rendering according to the square's color. Then I added methods to simplify the method render in MyChessSquare (remove some conditionals).
+I had to implement the double dispatch to render the piece according to its color and the color of the square it is in. The initial rendering contained too many conditionals.
 
 ![UML Design Double Dispatch](https://github.com/Frontaz1/Chess_Nguyen_Lang_Miroux/blob/main/uml/uml-design-double-dispatch.png)
+
+I added **MySquareColor**, an abstract class, and its subclasses **MyWhiteSquare** and **MyBlackSquare**, as well as **MyPieceColor**, and its subclasses **MyWhitePiece** and **MyBlackPiece**, since the rendering depends on the piece and the color of the square. Because the initial code was not open fore extension, it has many conditionals. So breaking the code into different methods and classes can help it being more dynamic and with less conditionals. Each class handle one responsibility (Single Responsibility Principle) and we can freely add more classes, for i.e a new piece color or a new type of piece, and use polymorphism.
+
+With this code, the square can ask the piece to render itself, and the piece can decide which symbol to render thanks to its color. Let's see how it works to render a White King on a Black Square :
+- In **MyChessSquare** class, if the square is black,  **MyBlackSquare >> renderKing; aPiece** is called. It answers the question : What is the color of the square ?
+- the square doesn't know which piece it is but knows himself is black, so it delegates to the piece and so call **MyKing >> renderKingOnBlackSquare**. It answers the question : Which type of piece is it ?
+- the color of the piece decides on the symbol and so the method called, based on his white color, is in **MyWhitePiece >> renderKingOnBlackSquare: aKing**. It answers the question : What is the color of the piece ?
+
+So **MySquareColor** and subclasses define how the square should influence rendering, and **MyPieceColor** and subclasses define how color changes the piece's behavior.
 
 #### Difficulties
 Implementing the double dispatch was the biggest difficulty because I had to take count of the color of the pieces and the color of the squares so that the rendering is correct according to the color of the piece and the color of the square. Since I started off with not understanding that pieces have different characters according to the square's color, the double dispatch is more complexed.
