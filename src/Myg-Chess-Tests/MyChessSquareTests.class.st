@@ -64,6 +64,20 @@ MyChessSquareTests >> testNilSquareDirectionalMethodsReturnSelf [
 ]
 
 { #category : 'tests' }
+MyChessSquareTests >> testNilSquareHasPiece [
+    | nilSquare |
+    nilSquare := MyNilSquare new.
+    self deny: nilSquare hasPiece.
+]
+
+{ #category : 'tests' }
+MyChessSquareTests >> testNilSquareStopsCollectSquares [
+    | nilSquare |
+    nilSquare := MyNilSquare new.
+    self assert: nilSquare shouldStopCollecting.
+]
+
+{ #category : 'tests' }
 MyChessSquareTests >> testSetContentsOnASquare [
 	| square pawn board text|
 	board := MyChessBoard empty.
