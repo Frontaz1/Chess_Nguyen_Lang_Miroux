@@ -72,16 +72,12 @@ MyKing >> opponentPieces [
 
 { #category : 'rendering' }
 MyKing >> renderKingOnBlackSquare [
-	^ self isWhite
-		ifTrue: [ 'k' ]
-		ifFalse: [ 'l' ]
+	^ color renderKingOnBlackSquare: self
 ]
 
 { #category : 'rendering' }
 MyKing >> renderKingOnWhiteSquare [
-	^ self isWhite
-		ifTrue: [ 'K' ]
-		ifFalse: [ 'L' ]
+	^ color renderKingOnWhiteSquare: self
 ]
 
 { #category : 'rendering' }

@@ -5,6 +5,11 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
+{ #category : 'comparing' }
+MyPieceColor >> = other [
+	^ self class = other class
+]
+
 { #category : 'testing' }
 MyPieceColor >> isBlack [
 	self subclassResponsibility 
