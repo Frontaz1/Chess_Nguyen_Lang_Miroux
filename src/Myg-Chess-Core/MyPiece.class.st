@@ -53,7 +53,7 @@ MyPiece >> collectSquares: aBlock [
 MyPiece >> collectSquares: aBlock legal: shouldBeLegal [
 	"run through squares according to a direction, ignore squares where same colored pieces are on or MyNilSquare"
 	^ self collectSquares: aBlock while: [ :aSquare |
-		  (aSquare shouldStopCollecting) not and: shouldBeLegal ==> aSquare hasPiece not]
+		    shouldBeLegal ==> aSquare hasPiece not]
 ]
 
 { #category : 'rendering' }
