@@ -33,7 +33,6 @@ MyPawnPromotionTest >> testWhitePawnAtRank7HasNotReachedPromotionRank [
 
 { #category : 'tests' }
 MyPawnPromotionTest >> testWhitePawnAtRank8HasReachedPromotionRank [
-    "White pawn in rank 8 has reached promotion rank"
     | whitePawn board square |
     board := MyChessBoard empty.
     board initializeSquares.
