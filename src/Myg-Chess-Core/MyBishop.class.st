@@ -13,16 +13,12 @@ MyBishop >> id [
 
 { #category : 'rendering' }
 MyBishop >> renderBishopOnBlackSquare [
-	^self isWhite
-		ifTrue: [  'b' ]
-		ifFalse: [ 'v' ]
+	^ color renderBishopOnBlackSquare: self
 ]
 
 { #category : 'rendering' }
 MyBishop >> renderBishopOnWhiteSquare [
-	^self isWhite
-		ifTrue: [  'B' ]
-		ifFalse: [ 'V' ]
+	^ color renderBishopOnWhiteSquare: self
 ]
 
 { #category : 'rendering' }
