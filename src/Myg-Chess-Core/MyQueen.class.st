@@ -13,16 +13,12 @@ MyQueen >> renderPieceOn: aSquare [
 
 { #category : 'rendering' }
 MyQueen >> renderQueenOnBlackSquare [
-	^ self isWhite
-		ifTrue: [ 'q' ]
-		ifFalse: [ 'w' ]
+	^ color renderQueenOnBlackSquare: self
 ]
 
 { #category : 'rendering' }
 MyQueen >> renderQueenOnWhiteSquare [
-	^ self isWhite
-		ifTrue: [ 'Q' ]
-		ifFalse: [ 'W' ]
+	^ color renderQueenOnWhiteSquare: self
 ]
 
 { #category : 'rendering' }

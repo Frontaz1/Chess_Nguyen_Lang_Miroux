@@ -14,16 +14,12 @@ MyKnight >> id [
 { #category : 'rendering' }
 MyKnight >> renderKnightOnBlackSquare [
 
-	^ self isWhite
-		ifTrue: [ 'n' ]
-		ifFalse: [ 'm' ]
+	^ color renderKnightOnBlackSquare: self
 ]
 
 { #category : 'rendering' }
 MyKnight >> renderKnightOnWhiteSquare [
-	^ self isWhite
-		ifTrue: [ 'N' ]
-		ifFalse: [ 'M' ]
+	^ color renderKnightOnWhiteSquare: self
 ]
 
 { #category : 'rendering' }

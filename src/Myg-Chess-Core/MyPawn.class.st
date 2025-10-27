@@ -29,16 +29,12 @@ MyPawn >> id [
 
 { #category : 'rendering' }
 MyPawn >> renderPawnOnBlackSquare [
-	^ self isWhite
-		ifTrue: [ 'p' ]
-		ifFalse: [ 'o' ]
+	^ color renderPawnOnBlackSquare: self
 ]
 
 { #category : 'rendering' }
 MyPawn >> renderPawnOnWhiteSquare [
-	^ self isWhite
-		ifTrue: [ 'P' ]
-		ifFalse: [ 'O' ]
+	^ color renderPawnOnWhiteSquare: self
 ]
 
 { #category : 'rendering' }

@@ -18,16 +18,12 @@ MyRook >> renderPieceOn: aSquare [
 
 { #category : 'rendering' }
 MyRook >> renderRookOnBlackSquare [
-	^ self isWhite
-		ifTrue: [ 'r' ]
-		ifFalse: [ 't' ]
+	^ color renderRookOnBlackSquare: self
 ]
 
 { #category : 'rendering' }
 MyRook >> renderRookOnWhiteSquare [
-	^ self isWhite
-		ifTrue: [ 'R' ]
-		ifFalse: [ 'T' ]
+	^ color renderRookOnWhiteSquare: self
 ]
 
 { #category : 'rendering' }
