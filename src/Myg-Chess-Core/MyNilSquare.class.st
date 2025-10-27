@@ -23,7 +23,7 @@ MyNilSquare >> down [
 
 { #category : 'testing' }
 MyNilSquare >> hasPiece [
-	^true
+	^false
 ]
 
 { #category : 'instance creation' }

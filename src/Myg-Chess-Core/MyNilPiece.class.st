@@ -5,6 +5,11 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
+{ #category : 'accessing' }
+MyNilPiece >> color [
+^nil
+]
+
 { #category : 'testing' }
 MyNilPiece >> isPiece [
 	^false
@@ -19,7 +24,6 @@ MyNilPiece >> renderPieceOn: aSquare [
 
 { #category : 'rendering' }
 MyNilPiece >> targetSquaresLegal: aBoolean [
-	"//A améliorer"
 	"Return une liste vide pour éviter de lever une exception"
 	^ {  }
 ]
