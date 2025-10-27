@@ -150,7 +150,7 @@ MyChessGame >> play [
 	self checkForMate
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'playing' }
 MyChessGame >> promotePawn: aPawn at: aSquare [
     | pieceClass newPiece |
     pieceClass := self promotionPawn promotePawn: aPawn.
