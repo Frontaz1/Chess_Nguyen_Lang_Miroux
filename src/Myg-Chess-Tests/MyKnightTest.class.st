@@ -16,6 +16,42 @@ MyKnightTest >> testIsPiece [
 ]
 
 { #category : 'tests' }
+MyKnightTest >> testKnightMovesWithOponentObstacle [
+    | knight squares board |
+    board := MyChessBoard empty.
+    board at: 'e4' put: (knight := MyKnight white).
+
+    "Knights jump in L-shape"
+    "They can capture enemy pieces"
+    board at: 'f6' put: MyKnight black.
+
+    squares := knight targetSquaresLegal: true.
+    self
+        assertCollection: squares
+        includesAll:
+            (#( d6 f6 g5 g3 f2 d2 c3 c5 ) collect: [ :name |
+                    board at: name ]).
+]
+
+{ #category : 'tests' }
+MyKnightTest >> testKnightMovesWithSameColorObstacle [
+    | knight squares board |
+    board := MyChessBoard empty.
+    board at: 'e4' put: (knight := MyKnight white).
+
+    "Knights cannot capture same-color pieces"
+    board at: 'f6' put: MyKnight white.
+
+    squares := knight targetSquaresLegal: true.
+    self
+        assertCollection: squares
+        includesAll:
+            (#( d6 g5 g3 f2 d2 c3 c5 ) collect: [ :name |
+                    board at: name ]).
+    self deny: (squares includes: (board at: 'f6')).
+]
+
+{ #category : 'tests' }
 MyKnightTest >> testRenderBlackKnightOnBlackSquare [ 
 	"render knight according to its colour
 	 must render 'm' if it is a black knight on a black square"
