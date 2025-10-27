@@ -69,11 +69,11 @@ MyPiece >> collectSquares: collectBlock while: untilBlock [
         "stop le while si on atteint le bord(NilSquare)"
         (next shouldStopCollecting) ifTrue: [ ^targets ].
 
-        "If we can it the next piece, then add it too"
+        "If we can it the next piece, then add it too (If its a empty square or an opposite color piece)"
         ((next hasPiece not) or: [ next contents color ~= self color ]) ifTrue: [
             targets add: next
         ].
-        "stop si y'a une pièce"
+        "stop si y'a une pièce de même couleur"
         (next hasPiece) ifTrue: [ ^targets ].
     ].
 	^ targets

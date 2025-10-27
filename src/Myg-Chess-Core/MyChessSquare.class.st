@@ -37,7 +37,7 @@ MyChessSquare class >> white [
 
 { #category : 'arithmetic' }
 MyChessSquare >> + aPoint [
-
+"Return the square after moving by aPoint but if its offboard we return a MyNilSquare "
 	| column file |
 	column := (self column asciiValue + aPoint x) asCharacter asString.
 	file := (self file asciiValue + aPoint y) asCharacter asString.
