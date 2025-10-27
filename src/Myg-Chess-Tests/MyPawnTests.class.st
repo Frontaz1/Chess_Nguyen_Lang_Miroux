@@ -39,7 +39,7 @@ MyPawnTests >> testRenderBlackPawnOnAWhiteSquare [
 ]
 
 { #category : 'tests' }
-MyPawnTests >> testRenderWhitePawnOnAWhiteSquare [
+MyPawnTests >> testRenderWhitePawnOnABlackSquare [
 	"render pawn according to its colour
 	 must render 'p' if it is a white pawn on a black square"
 
@@ -48,4 +48,16 @@ MyPawnTests >> testRenderWhitePawnOnAWhiteSquare [
 	
 	aSquare := MyChessSquare color: MyBlackSquare new.
 	self assert: (aSquare renderPiece: whitePawn) equals: 'p'.
+]
+
+{ #category : 'tests' }
+MyPawnTests >> testRenderWhitePawnOnAWhiteSquare [
+	"render pawn according to its colour
+	 must render 'p' if it is a white pawn on a white square"
+
+	| whitePawn aSquare |
+	whitePawn := MyPawn white.
+	
+	aSquare := MyChessSquare color: MyWhiteSquare new.
+	self assert: (aSquare renderPiece: whitePawn) equals: 'P'.
 ]
