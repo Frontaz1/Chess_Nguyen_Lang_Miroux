@@ -56,6 +56,120 @@ Questions and ideas that can help you in the process:
 - Can tests help you do it with less pain?
 - Something similar happens when a pieces wants to move outside of the board, can you find it and fix it?
 
+### Design decisions
+Pour avoir un code plus propre et retirer la logique de nil qui peut vite rendre le code rempli de checks.
+To solve the problem of repetitive `nil` checks, I applied the Null Object Design Pattern.
+
+Indeed, the absence of a Piece was represented by a `nil`, so we always had to check with a 'nil' check whether our square had a Piece or not.
+
+I created a subclass of MyPiece called MyNilPiece, which represents the absence of a real piece
+
+This class will allow to return a `null object` with the behavior of a piece instead of a simple `nil`.
+
+So now MyNilPiece responds to the same messages as any other piece, allowing polymorphism to replace explicit conditionals.
+
+In the class MyPiece, we already had:
+```
+MyPiece >> isPiece
+	^ true
+```
+
+So in MyNilPiece, I simply redefined it as:
+
+```
+MyNilPiece >> isPiece
+	
+	^ false
+```
+
+Now, anywhere the code previously checked `piece notNil`, we can write  `piece isPiece`.
+For example
+Before
+```
+MyPlayer >> pieces [
+	^ game pieces select: [ :p | p notNil and: [ p color = self color ] ]
+```
+
+After : 
+```
+MyPlayer >> pieces [
+	^ game pieces select: [ :p | p isPiece and: [ p color = self color ] ]
+```
+MyNilPiece now represents the absence of a piece, rather than nil.
+
+
+Maintenant dans notre code au lieu de verifier qu'un square possède une piece nous pouvons simplement faire appel a la méthode isPiece sur n'importe quelle pièce car maintenant il n'y a plus de Nil.
+Before the refactor, squares used nil to represent empty contents:
+
+Before : 
+```
+MyChessSquare >> hasPiece 
+	^ contents isNil not
+```
+After Null Object design : 
+```
+MyChessSquare >> hasPiece 
+	^ contents isPiece
+```
+
+The utility is also that now we no longer have to check if our contents (Square content) is nil or not, our code will be able to adapt and respond to any type of piece (nil or not)
+```
+MyChessSquare >> contents: aPiece
+...
+text := contents
+		        ifNil: [
+			        color isBlack
+				        ifFalse: [ 'z' ]
+				        ifTrue: [ 'x' ] ]
+		        ifNotNil: [ contents renderPieceOn: self ].
+...
+```
+
+```
+MyChessSquare >> contents: aPiece
+...
+text :=  contents renderPieceOn: self.
+...
+```
+
+The renderPieceOn: method is implemented both in MyPiece and MyNilPiece, so the correct behavior occurs automatically.
+
+
+Additionally, during board initialization squares, every square now starts with a MyNilPiece in their contents.
+
+Dans l'ensemble nous voyons que grâce à ce Design, nous appliquons du polymorphisme et donc on n'a plus besoin de vérifier si nil ou non.
+
+#### MyNilSquare 
+
+I also add MyNilSquare, a Null Object that represents an off-board square.
+Instead of returning nil when moving outside the board boundaries, the code now returns an instance of MyNilSquare.
+
+This class safely implements all movement methods (up, down, left, right) by returning self.
+This eliminates the need for repeated ifNotNil: guards in movement logic:
+
+Before : 
+```
+MyPiece >> downRightDiagonalLegal: aBoolean
+    ^ self collectSquares: [ :aSquare | aSquare down ifNotNil: #right ] legal: aBoolean
+```
+After : 
+```
+MyPiece >> downRightDiagonalLegal: aBoolean
+    ^ self collectSquares: [ :aSquare | aSquare down right ] legal: aBoolean
+```
+
+The method shouldStopCollecting plays a similar role to isPiece, but for movement traversal.
+
+When a piece moves along a direction (like a bishop along a diagonal), we need to know when to stop collecting squares.
+Instead of checking if the square is nil or outside the board, we can simply ask each square:
+```
+aSquare shouldStopCollecting
+```
+For a normal square, this returns false.
+For a MyNilSquare, it returns true, which signals that we’ve reached the board’s limit
+
+
+
 ### Refactor piece rendering (Olivia)
 
 **Goal:** Practice refactorings, double dispatch and table dispatch
