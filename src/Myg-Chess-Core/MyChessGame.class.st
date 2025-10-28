@@ -183,7 +183,7 @@ MyChessGame >> recordMovementOf: aPiece to: aSquare [
 	prefix := currentPlayer isWhite
 		          ifTrue: [ moveCount asString , '.' ]
 		          ifFalse: [ '' ].
-	moves add: prefix , ' ' , aPiece id , aSquare name.
+	moves add: prefix , ' ' , (aSquare renderPiece: aPiece) , aSquare name.
 	
 	movesText := String streamContents: [ :stream |
 		| currentLine |
