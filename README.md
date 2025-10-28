@@ -96,6 +96,21 @@ With this code, the square can ask the piece to render itself, and the piece can
 - the color of the piece decides on the symbol and so the method called, based on his white color, is in **MyWhitePiece >> renderKingOnBlackSquare: aKing**. It answers the question : What is the color of the piece ?
 
 So **MySquareColor** and subclasses define how the square should influence rendering, and **MyPieceColor** and subclasses define how color changes the piece's behavior.
+I also noticed that whatever color of the piece we are playing (and whatever the square's color), only the id is display on the movement record. So if a black Pawn moves to a black Square, it will only display 'P' and not 'o'. So to change it and see if the rendering with double dispatch is effective, I changed the method **MyChessGame >> recordMovementOf: aPiece to: aSquare** : 
+```
+recordMovementOf: aPiece to: aSquare
+	"moves add: (MyMove piece: aPiece square: aSquare name)."
+
+	| prefix movesText |
+	prefix := currentPlayer isWhite
+		          ifTrue: [ moveCount asString , '.' ]
+		          ifFalse: [ '' ].
+	moves add: prefix , ' ' , (aSquare renderPiece: aPiece) , aSquare name.       "it was aPiece id"
+	....
+```
+> See [tag v.1.4](https://github.com/Frontaz1/Chess_Nguyen_Lang_Miroux/releases/tag/v.1.4)
+
+The good part of this scenario is that we remove all the conditionals and we can add objects easily. The bad part of this double dispatch is that there are more classes and it is hard to find and to understand which method is executed.
 
 #### Difficulties
 Implementing the double dispatch was the biggest difficulty because I had to take count of the color of the pieces and the color of the squares so that the rendering is correct according to the color of the piece and the color of the square. Since I started off with not understanding that pieces have different characters according to the square's color, the double dispatch is more complexed.
@@ -147,7 +162,20 @@ MyRookTests >> testRenderBlackRookOnABlackSquare
 	aSquare := MyChessSquare color: MyBlackSquare new.
 	self assert: (aSquare renderPiece: blackRook) equals: 't'.
 ```
-
+#### Extension : table dispatch
+With table dispatch, we have to create a table or a dictionary that associates a piece, a square and give the rendering symbol. For exemaple with King : 
+```
+MyKing >> renderTable
+	renderTable
+    ^ {
+        { #whitePiece. #whiteSquare } -> [ 'K' ].
+        { #whitePiece. #blackSquare } -> [ 'k' ].
+        { #blackPiece. #whiteSquare } -> [ 'L' ].
+        { #blackPiece. #blackSquare } -> [ 'l' ].
+      } asDictionary
+```
+Using table dispatch allows us to have less subclasses and methods, it is more data-oriented.
+Since we didn't learn how to make table dispatch yet, I didn't commit the code to avoid breaking the code again.
 
 ### Add pawn promotion
 
