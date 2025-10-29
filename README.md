@@ -198,7 +198,7 @@ Questions and ideas that can help you in the process:
 - What are the good and bad parts of them in *this scenario*? Do you understand why?
 
 #### Design decisions
-I had to implement the double dispatch to render the piece according to its color and the color of the square it is in. The initial rendering contained too many conditionals.
+I had to implement the double dispatch to render the piece according to its color and the color of the square it is in. The initial rendering contained too many conditionals so I prioritized remove them.
 
 ![UML Design Double Dispatch](https://github.com/Frontaz1/Chess_Nguyen_Lang_Miroux/blob/main/uml/uml-design-double-dispatch.png)
 
@@ -222,9 +222,11 @@ recordMovementOf: aPiece to: aSquare
 	moves add: prefix , ' ' , (aSquare renderPiece: aPiece) , aSquare name.       "it was aPiece id"
 	....
 ```
-> See [tag v.1.4](https://github.com/Frontaz1/Chess_Nguyen_Lang_Miroux/releases/tag/v.1.4)
+> NB : auto play doesn't work with this correction.
 
 The good part of this scenario is that we remove all the conditionals and we can add objects easily. The bad part of this double dispatch is that there are more classes and it is hard to find and to understand which method is executed.
+
+> See [tag v.1.2 for double dispatch](https://github.com/Frontaz1/Chess_Nguyen_Lang_Miroux/releases/tag/v.1.2)
 
 #### Difficulties
 Implementing the double dispatch was the biggest difficulty because I had to take count of the color of the pieces and the color of the squares so that the rendering is correct according to the color of the piece and the color of the square. Since I started off with not understanding that pieces have different characters according to the square's color, the double dispatch is more complexed.
@@ -276,6 +278,8 @@ MyRookTests >> testRenderBlackRookOnABlackSquare
 	aSquare := MyChessSquare color: MyBlackSquare new.
 	self assert: (aSquare renderPiece: blackRook) equals: 't'.
 ```
+I didn't test intermediary methods because it'd be complicated to test without knowing what message is sent.
+
 #### Extension : table dispatch
 With table dispatch, we have to create a table or a dictionary that associates a piece, a square and give the rendering symbol. For exemaple with King : 
 ```
