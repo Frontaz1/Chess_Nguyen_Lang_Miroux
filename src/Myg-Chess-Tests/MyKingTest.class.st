@@ -41,6 +41,43 @@ MyKingTest >> testIsPiece [
 ]
 
 { #category : 'tests' }
+MyKingTest >> testKingMovesWithOponentObstacle [
+"We cannot target e5 because its a threathened square (We need to modify this behavior to allowed the king to eat e5)"
+    | king squares board |
+    board := MyChessBoard empty.
+    board at: 'e4' put: (king := MyKing white).
+
+    "King moves one square in any direction"
+    "Can capture enemy pieces"
+    board at: 'e5' put: MyRook black.
+
+    squares := king targetSquaresLegal: true.
+    self
+        assertCollection: squares
+        includesAll:
+            (#( f4 d3 f4 e3 f3 ) collect: [ :name |
+                    board at: name ]).
+]
+
+{ #category : 'tests' }
+MyKingTest >> testKingMovesWithSameColorObstacle [
+    | king squares board |
+    board := MyChessBoard empty.
+    board at: 'e4' put: (king := MyKing white).
+
+    "King cannot move onto squares occupied by same-color pieces"
+    board at: 'e5' put: MyRook white.
+
+    squares := king targetSquaresLegal: true.
+    self
+        assertCollection: squares
+        includesAll:
+            (#( d5 f5 d4 f4 d3 e3 f3 ) collect: [ :name |
+                    board at: name ]).
+    self deny: (squares includes: (board at: 'e5')).
+]
+
+{ #category : 'tests' }
 MyKingTest >> testRenderBlackKingOnABlackSquare [
 
 	| tmp1 tmp2 |

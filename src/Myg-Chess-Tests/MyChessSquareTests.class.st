@@ -6,6 +6,17 @@ Class {
 }
 
 { #category : 'tests' }
+MyChessSquareTests >> testCollectSquaresDoesNotLoop [
+	| board bishop squares |
+	board := MyChessBoard empty.
+	board at: 'a1' put: (bishop := MyBishop white).
+
+	squares := bishop downLeftDiagonalLegal: false.
+
+	self assert: squares isEmpty.
+]
+
+{ #category : 'tests' }
 MyChessSquareTests >> testEmptyContents [
 
 	| square pawn board|
@@ -33,6 +44,40 @@ self assert: square contents class equals: MyNilPiece
 ]
 
 { #category : 'tests' }
+MyChessSquareTests >> testNilSquareContents [
+    | nilSquare |
+    nilSquare := MyNilSquare new.
+
+    self assert: (nilSquare contents isKindOf: MyNilPiece).
+]
+
+{ #category : 'tests' }
+MyChessSquareTests >> testNilSquareDirectionalMethodsReturnSelf [
+
+	| nilSquare |
+	nilSquare := MyNilSquare new.
+	
+	self assert: nilSquare up identicalTo: nilSquare.
+	self assert: nilSquare down identicalTo: nilSquare.
+	self assert: nilSquare left identicalTo: nilSquare.
+	self assert: nilSquare right identicalTo: nilSquare
+]
+
+{ #category : 'tests' }
+MyChessSquareTests >> testNilSquareHasPiece [
+    | nilSquare |
+    nilSquare := MyNilSquare new.
+    self deny: nilSquare hasPiece.
+]
+
+{ #category : 'tests' }
+MyChessSquareTests >> testNilSquareStopsCollectSquares [
+    | nilSquare |
+    nilSquare := MyNilSquare new.
+    self assert: nilSquare shouldStopCollecting.
+]
+
+{ #category : 'tests' }
 MyChessSquareTests >> testSetContentsOnASquare [
 	| square pawn board text|
 	board := MyChessBoard empty.
@@ -45,4 +90,19 @@ MyChessSquareTests >> testSetContentsOnASquare [
 	self assert: square contents class equals: MyPawn.
 	"For the moment this line doesn't work"
 	self assert: (square renderPiece: square contents) equals: 'P'.
+]
+
+{ #category : 'tests' }
+MyChessSquareTests >> testSquarePlusReturnsNilSquareOutsideBoard [
+	| board square result |
+	board := MyChessBoard empty.
+	square := board at: 'h8'.
+
+	"case a droite(hors plateau)"
+	result := square + (1@0).
+	self assert: result class equals: MyNilSquare.
+	
+	"case en haut(hors plateau)"
+	result := square + (0@1).
+	self assert: result class equals: MyNilSquare.
 ]

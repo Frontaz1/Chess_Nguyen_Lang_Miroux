@@ -13,7 +13,7 @@ Class {
 MyPiece class >> black [
 
 	^ self new
-		  color: Color black;
+		  color: MyBlackPiece new;
 		  yourself
 ]
 
@@ -21,7 +21,7 @@ MyPiece class >> black [
 MyPiece class >> white [
 
 	^ self new
-		  color: Color white;
+		  color: MyWhitePiece new;
 		  yourself
 ]
 
@@ -51,9 +51,9 @@ MyPiece >> collectSquares: aBlock [
 
 { #category : 'rendering' }
 MyPiece >> collectSquares: aBlock legal: shouldBeLegal [
-	"run through squares according to a direction, ignore squares where same colored pieces are on"
+	"run through squares according to a direction, ignore squares where same colored pieces are on or MyNilSquare"
 	^ self collectSquares: aBlock while: [ :aSquare |
-		  aSquare notNil and: [ shouldBeLegal ==> aSquare hasPiece not ] ]
+		    shouldBeLegal ==> aSquare hasPiece not]
 ]
 
 { #category : 'rendering' }
@@ -64,12 +64,18 @@ MyPiece >> collectSquares: collectBlock while: untilBlock [
 
 	"Collect up right"
 	next := square.
-	[ untilBlock value: (next := collectBlock value: next) ]
-		whileTrue: [ targets add: next ].
+	[ true ] whileTrue: [
+        next := collectBlock value: next.
+        "stop le while si on atteint le bord(NilSquare)"
+        (next shouldStopCollecting) ifTrue: [ ^targets ].
 
-	"If we can it the next piece, then add it too"
-	(next notNil and: [ next contents color ~= color ]) ifTrue: [ targets add: next ].
-
+        "If we can it the next piece, then add it too (If its a empty square or an opposite color piece)"
+        ((next hasPiece not) or: [ next contents color ~= self color ]) ifTrue: [
+            targets add: next
+        ].
+        "stop si y'a une pièce de même couleur"
+        (next hasPiece) ifTrue: [ ^targets ].
+    ].
 	^ targets
 ]
 
@@ -107,7 +113,7 @@ MyPiece >> downLeftDiagonal [
 MyPiece >> downLeftDiagonalLegal: aBoolean [
 	"run through squares under the piece - diagonally to the left - and apply filter legal"
 	^ self
-		  collectSquares: [ :aSquare | aSquare down ifNotNil: #left ]
+		  collectSquares: [ :aSquare | aSquare down left ]
 		  legal: aBoolean
 ]
 
@@ -121,7 +127,7 @@ MyPiece >> downRightDiagonal [
 MyPiece >> downRightDiagonalLegal: aBoolean [
 	"run through squares under the piece - diagonally to the right - and apply filter legal"
 	^ self
-		  collectSquares: [ :aSquare | aSquare down ifNotNil: #right ]
+		  collectSquares: [ :aSquare | aSquare down right ]
 		  legal: aBoolean
 ]
 
@@ -236,7 +242,7 @@ MyPiece >> upLeftDiagonal [
 { #category : 'rendering' }
 MyPiece >> upLeftDiagonalLegal: aBoolean [
 	"run through squares above the piece - diagonally to the left - and apply filter legal"
-	^ self collectSquares: [ :aSquare | aSquare up ifNotNil: #left ] legal: aBoolean
+	^ self collectSquares: [ :aSquare | aSquare up left ] legal: aBoolean
 ]
 
 { #category : 'rendering' }
@@ -249,6 +255,6 @@ MyPiece >> upRightDiagonal [
 MyPiece >> upRightDiagonalLegal: aBoolean [
 	"run through squares above the piece - diagonally to the right - and apply filter legal"
 	^ self
-		  collectSquares: [ :aSquare | aSquare up ifNotNil: #right ]
+		  collectSquares: [ :aSquare | aSquare up right ]
 		  legal: aBoolean
 ]

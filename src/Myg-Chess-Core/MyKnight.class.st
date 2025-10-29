@@ -14,16 +14,12 @@ MyKnight >> id [
 { #category : 'rendering' }
 MyKnight >> renderKnightOnBlackSquare [
 
-	^ self isWhite
-		ifTrue: [ 'n' ]
-		ifFalse: [ 'm' ]
+	^ color renderKnightOnBlackSquare: self
 ]
 
 { #category : 'rendering' }
 MyKnight >> renderKnightOnWhiteSquare [
-	^ self isWhite
-		ifTrue: [ 'N' ]
-		ifFalse: [ 'M' ]
+	^ color renderKnightOnWhiteSquare: self
 ]
 
 { #category : 'rendering' }
@@ -34,16 +30,18 @@ MyKnight >> renderPieceOn: aSquare [
 
 { #category : 'rendering' }
 MyKnight >> targetSquaresLegal: aBoolean [
-
-	^ {
-		  (square right ifNotNil: [ :p | p right ifNotNil: #up ]).
-		  (square right ifNotNil: [ :p | p right ifNotNil: #down ]).
-		  (square left ifNotNil: [ :p | p left ifNotNil: #up ]).
-		  (square left ifNotNil: [ :p | p left ifNotNil: #down ]).
-		  (square up ifNotNil: [ :p | p up ifNotNil: #left ]).
-		  (square up ifNotNil: [ :p | p up ifNotNil: #right ]).
-		  (square down ifNotNil: [ :p | p down ifNotNil: #left ]).
-		  (square down ifNotNil: [ :p | p down ifNotNil: #right ]) }
-		  select: [ :s |
-			  s notNil and: [ s hasPiece not or: [ s contents color ~= color ] ] ]
+^ {
+        (square right right) up.
+        (square right right) down.
+        (square left left) up.
+        (square left left) down.
+        (square up up) left.
+        (square up up) right.
+        (square down down) left.
+        (square down down) right
+    }
+    select: [ :s |
+		"shouldStopCollecting pour éviter d'avoir un nilSquare"
+		 (s shouldStopCollecting not) and:
+        [ s hasPiece not or: [ s contents color ~= color ] ] ].
 ]

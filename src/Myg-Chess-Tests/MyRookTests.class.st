@@ -110,3 +110,13 @@ MyRookTests >> testRenderWhiteRookOnAWhiteSquare [
 	tmp2 := MyChessSquare color: MyWhiteSquare new.
 	self assert: (tmp2 renderPiece: tmp1) equals: 'R'
 ]
+
+{ #category : 'tests' }
+MyRookTests >> testRookStopsAtBoardEdge [
+	| board rook squares |
+	board := MyChessBoard empty.
+	board at: 'd4' put: (rook := MyRook white).
+
+	squares := rook collectSquares: [ :sq | sq up ].
+	self assert: ((squares collect: #name) includesAll: #('d5' 'd6' 'd7' 'd8')).
+]

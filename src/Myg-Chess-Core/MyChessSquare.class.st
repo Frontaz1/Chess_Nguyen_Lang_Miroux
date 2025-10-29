@@ -37,12 +37,13 @@ MyChessSquare class >> white [
 
 { #category : 'arithmetic' }
 MyChessSquare >> + aPoint [
-
+"Return the square after moving by aPoint but if its offboard we return a MyNilSquare "
 	| column file |
 	column := (self column asciiValue + aPoint x) asCharacter asString.
 	file := (self file asciiValue + aPoint y) asCharacter asString.
-
-	^ board at: column , file ifAbsent: [ ^ nil ]
+	
+	"Si la case n'existe pas on renvoie MyNilSquare"
+	^ board at: column , file ifAbsent: [ MyNilSquare new ]
 ]
 
 { #category : 'accessing' }
@@ -249,6 +250,11 @@ MyChessSquare >> right [
 MyChessSquare >> select [
 	
 	self border: Color green
+]
+
+{ #category : 'asserting' }
+MyChessSquare >> shouldStopCollecting [
+	^ false
 ]
 
 { #category : 'highlighting' }

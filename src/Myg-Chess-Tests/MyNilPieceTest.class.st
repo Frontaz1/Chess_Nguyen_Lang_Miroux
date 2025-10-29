@@ -35,6 +35,11 @@ MyNilPieceTest >> testIsPiece [
 ]
 
 { #category : 'tests' }
+MyNilPieceTest >> testNilPieceTargetSquaresLegal [
+    self assert: (MyNilPiece new targetSquaresLegal: true) isEmpty.
+]
+
+{ #category : 'tests' }
 MyNilPieceTest >> testRenderNilPiece [
 	"render NilPiece according to its colour
 	 must render 'z' if it is a white nilPiece
