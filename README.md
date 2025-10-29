@@ -48,7 +48,7 @@ Questions and ideas that can help you in the process:
 - Something similar happens when a pieces wants to move outside of the board, can you find it and fix it?
 
 ### Design decisions
-Pour avoir un code plus propre et retirer la logique de nil qui peut vite rendre le code rempli de checks.
+
 To solve the problem of repetitive `nil` checks, I applied the Null Object Design Pattern.
 
 Indeed, the absence of a Piece was represented by a `nil`, so we always had to check with a 'nil' check whether our square had a Piece or not.
@@ -88,6 +88,9 @@ MyPlayer >> pieces [
 ```
 MyNilPiece now represents the absence of a piece, rather than nil.
 
+UML : 
+
+![UML MyNilPiece](https://github.com/Frontaz1/Chess_Nguyen_Lang_Miroux/blob/main/uml/uml-NullObject-MyNilPiece.png)
 
 Maintenant dans notre code au lieu de verifier qu'un square possède une piece nous pouvons simplement faire appel a la méthode isPiece sur n'importe quelle pièce car maintenant il n'y a plus de Nil.
 Before the refactor, squares used nil to represent empty contents:
@@ -103,7 +106,9 @@ MyChessSquare >> hasPiece
 	^ contents isPiece
 ```
 
-The utility is also that now we no longer have to check if our contents (Square content) is nil or not, our code will be able to adapt and respond to any type of piece (nil or not)
+The utility is also that now we no longer have to check if our contents (Square content) is nil or not, our code will be able to adapt and respond to any type of piece (MyNilPiece and the others)
+
+Before : 
 ```
 MyChessSquare >> contents: aPiece
 ...
@@ -115,7 +120,7 @@ text := contents
 		        ifNotNil: [ contents renderPieceOn: self ].
 ...
 ```
-
+After : 
 ```
 MyChessSquare >> contents: aPiece
 ...
@@ -126,7 +131,9 @@ text :=  contents renderPieceOn: self.
 The renderPieceOn: method is implemented both in MyPiece and MyNilPiece, so the correct behavior occurs automatically.
 
 
-Additionally, during board initialization squares, every square now starts with a MyNilPiece in their contents.
+Additionally, during board initialization squares, every square now starts with a `MyNilPiece` in their contents.
+
+Last thing for example in MyChessSquare the method emptyContents set contents with a `MyNilPiece` and not `nil` now 
 
 Dans l'ensemble nous voyons que grâce à ce Design, nous appliquons du polymorphisme et donc on n'a plus besoin de vérifier si nil ou non.
 
@@ -136,6 +143,11 @@ I also add MyNilSquare, a Null Object that represents an off-board square.
 Instead of returning nil when moving outside the board boundaries, the code now returns an instance of MyNilSquare.
 
 This class safely implements all movement methods (up, down, left, right) by returning self.
+
+UML : 
+
+![UML MyNilSquare](https://github.com/Frontaz1/Chess_Nguyen_Lang_Miroux/blob/main/uml/uml-NullObject-MyNilSquare.png)
+
 This eliminates the need for repeated ifNotNil: guards in movement logic:
 
 Before : 
@@ -149,7 +161,7 @@ MyPiece >> downRightDiagonalLegal: aBoolean
     ^ self collectSquares: [ :aSquare | aSquare down right ] legal: aBoolean
 ```
 
-The method shouldStopCollecting plays a similar role to isPiece, but for movement traversal.
+The method shouldStopCollecting plays a similar role to isPiece, but for movement(collectSquare,targetSquare..).
 
 When a piece moves along a direction (like a bishop along a diagonal), we need to know when to stop collecting squares.
 Instead of checking if the square is nil or outside the board, we can simply ask each square:
@@ -159,7 +171,40 @@ aSquare shouldStopCollecting
 For a normal square, this returns false.
 For a MyNilSquare, it returns true, which signals that we’ve reached the board’s limit
 
+To conclude this design allow to upgrade the quality of code(clean code) and delete the logic of nil check. If we dont put this design the code can be in the futur filled with too many nil checks
 
+
+
+#### Difficulties
+The part where i have the most trouble was when i implemented and tested MyNilSquare i noticed that the collectSquares:while method was not optimal because it was collecting MyNilSquare instances or piece of same color..
+
+To solve this, i introduced the shouldStopCollecting method.
+
+This method tells the loop when to stop collecting, preventing the algorithm from going outside the board or collecting unnecessary squares.
+
+#### Tests 
+
+With the new design and the introduction of MyNilPiece and MyNilSquare i think i have a correct coverage of my code and scenarios.
+To ensure that the refactoring didn’t break anything, i make mainly automated tests.
+
+After removing all nil and ifNil: checks, I systematically wrote tests to cover all possible cases where a MyNilPiece or MyNilSquare could appear.
+
+First i make test for MyNilPiece and MyNiLSquare to know if the all the methods that a redefined or create works.
+
+- For MyNilPiece, for example i verify that isPiece returns false, and renderPieceOn: produces the right output for empty squares.
+
+- For MyNilSquare, i tested all directional methods (up, down, left, right) to confirm they return self and don’t break the board traversal logic.
+
+
+Moreover, I also tested the methods that used MyNilSquare or MyNilPiece
+
+- I tested that after the initialization of the chessboard, every square correctly contains a MyNilPiece by default.
+
+- I verified that send message emptyContents correctly replaces a piece with a MyNilPiece.
+
+- I also tested movement methods (like collectSquares: and diagonal movement) work well when they encounter a MyNilSquare.
+
+I also do manual test to verify when we play that the targetSquare for a piece work well and the game are not broken.
 
 ### Refactor piece rendering (Olivia)
 
