@@ -77,48 +77,36 @@ MyBishopTests >> testMovesWithSameColorObstacle [
 
 { #category : 'tests' }
 MyBishopTests >> testRenderBlackBishopOnBlackSquare [
-	"render bishop according to its colour
-	 must render 'v' if it is a black bishop on a black square"
 
-	| blackBishop aSquare |
-	blackBishop := MyBishop black.
-	
-	aSquare := MyChessSquare color: MyBlackSquare new.
-	self assert: (aSquare renderPiece: blackBishop ) equals: 'v'.
+	| tmp1 tmp2 |
+	tmp1 := MyBishop black.
+	tmp2 := MyChessSquare color: MyBlackSquare new.
+	self assert: (tmp2 renderPiece: tmp1) equals: 'v'
 ]
 
 { #category : 'tests' }
 MyBishopTests >> testRenderBlackBishopOnWhiteSquare [
-	"render bishop according to its colour
-	 must render 'V' if it is a black bishop on a white square"
 
-	| blackBishop aSquare |
-	blackBishop := MyBishop black.
-	
-	aSquare := MyChessSquare color: MyWhiteSquare new.
-	self assert: (aSquare renderPiece: blackBishop ) equals: 'V'.
+	| tmp1 tmp2 |
+	tmp1 := MyBishop black.
+	tmp2 := MyChessSquare color: MyWhiteSquare new.
+	self assert: (tmp2 renderPiece: tmp1) equals: 'V'
 ]
 
 { #category : 'tests' }
 MyBishopTests >> testRenderWhiteBishopOnBlackSquare [
-	"render bishop according to its colour
-	 must render 'b' if it is a white bishop on a black square"
 
-	| whiteBishop aSquare |
-	whiteBishop := MyBishop white.
-	
-	aSquare := MyChessSquare color: MyBlackSquare new.
-	self assert: (aSquare renderPiece: whiteBishop ) equals: 'b'.
+	| tmp1 tmp2 |
+	tmp1 := MyBishop white.
+	tmp2 := MyChessSquare color: MyBlackSquare new.
+	self assert: (tmp2 renderPiece: tmp1) equals: 'b'
 ]
 
 { #category : 'tests' }
 MyBishopTests >> testRenderWhiteBishopOnWhiteSquare [
-	"render bishop according to its colour
-	 must render 'B' if it is a white bishop on a white square"
 
-	| whiteBishop aSquare |
-	whiteBishop := MyBishop white.
-	
-	aSquare := MyChessSquare color: MyWhiteSquare new.
-	self assert: (aSquare renderPiece: whiteBishop ) equals: 'B'.
+	| tmp1 tmp2 |
+	tmp1 := MyBishop white.
+	tmp2 := MyChessSquare color: MyWhiteSquare new.
+	self assert: (tmp2 renderPiece: tmp1) equals: 'B'
 ]

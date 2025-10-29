@@ -77,48 +77,36 @@ MyRookTests >> testMovesWithSameColorObstacle [
 
 { #category : 'tests' }
 MyRookTests >> testRenderBlackRookOnABlackSquare [
-	"render knight according to its colour
-	 must render 't' if it is a black rook on a black square"
 
-	| blackRook aSquare |
-	blackRook := MyRook black.
-	
-	aSquare := MyChessSquare color: MyBlackSquare new.
-	self assert: (aSquare renderPiece: blackRook) equals: 't'.
+	| tmp1 tmp2 |
+	tmp1 := MyRook black.
+	tmp2 := MyChessSquare color: MyBlackSquare new.
+	self assert: (tmp2 renderPiece: tmp1) equals: 't'
 ]
 
 { #category : 'tests' }
 MyRookTests >> testRenderBlackRookOnAWhiteSquare [
-	"render knight according to its colour
-	 must render 'T' if it is a black rook on a white square"
 
-	| blackRook aSquare |
-	blackRook := MyRook black.
-	
-	aSquare := MyChessSquare color: MyWhiteSquare new.
-	self assert: (aSquare renderPiece: blackRook) equals: 'T'.
+	| tmp1 tmp2 |
+	tmp1 := MyRook black.
+	tmp2 := MyChessSquare color: MyWhiteSquare new.
+	self assert: (tmp2 renderPiece: tmp1) equals: 'T'
 ]
 
 { #category : 'tests' }
 MyRookTests >> testRenderWhiteRookOnABlackSquare [
-	"render knight according to its colour
-	 must render 'r' if it is a white rook on a black square"
 
-	| whiteRook aSquare |
-	whiteRook := MyRook white.
-	
-	aSquare := MyChessSquare color: MyBlackSquare new.
-	self assert: (aSquare renderPiece: whiteRook) equals: 'r'.
+	| tmp1 tmp2 |
+	tmp1 := MyRook white.
+	tmp2 := MyChessSquare color: MyBlackSquare new.
+	self assert: (tmp2 renderPiece: tmp1) equals: 'r'
 ]
 
 { #category : 'tests' }
 MyRookTests >> testRenderWhiteRookOnAWhiteSquare [
-	"render knight according to its colour
-	 must render 'R' if it is a white rook on a white square"
 
-	| whiteRook aSquare |
-	whiteRook := MyRook white.
-	
-	aSquare := MyChessSquare color: MyWhiteSquare new.
-	self assert: (aSquare renderPiece: whiteRook) equals: 'R'.
+	| tmp1 tmp2 |
+	tmp1 := MyRook white.
+	tmp2 := MyChessSquare color: MyWhiteSquare new.
+	self assert: (tmp2 renderPiece: tmp1) equals: 'R'
 ]

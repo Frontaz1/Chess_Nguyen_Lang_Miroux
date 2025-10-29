@@ -19,6 +19,18 @@ MyPawnPromotionTest >> testBlackPawnAtRank1HasReachedPromotionRank [
 ]
 
 { #category : 'tests' }
+MyPawnPromotionTest >> testBotPromotionReturnsQueen [
+	|promotion pawn check|
+	promotion := MyBotPromotion new.
+	pawn := MyPawn white.
+	
+	check := promotion promotePawn: pawn.
+	
+	self assert: check equals: MyQueen
+
+]
+
+{ #category : 'tests' }
 MyPawnPromotionTest >> testWhitePawnAtRank7HasNotReachedPromotionRank [
     "White Pawn at rank 7 not yet promotion rank"
     | whitePawn board square |

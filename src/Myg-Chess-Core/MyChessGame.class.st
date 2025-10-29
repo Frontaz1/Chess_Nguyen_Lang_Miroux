@@ -227,3 +227,8 @@ MyChessGame >> recordPromotion: aPawn to: newPiece at: aSquare [
     ].
     movesLabel text: movesText
 ]
+
+{ #category : 'as yet unclassified' }
+MyChessGame >> useBotStrategy [ 
+	self promotionPawn: MyBotPromotion.
+]

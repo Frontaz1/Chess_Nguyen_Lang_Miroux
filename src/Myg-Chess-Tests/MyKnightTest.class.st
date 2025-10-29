@@ -16,49 +16,37 @@ MyKnightTest >> testIsPiece [
 ]
 
 { #category : 'tests' }
-MyKnightTest >> testRenderBlackKnightOnBlackSquare [ 
-	"render knight according to its colour
-	 must render 'm' if it is a black knight on a black square"
+MyKnightTest >> testRenderBlackKnightOnBlackSquare [
 
-	| blackKnight aSquare |
-	blackKnight := MyKnight black.
-	
-	aSquare := MyChessSquare color: MyBlackSquare new.
-	self assert: (aSquare renderPiece: blackKnight) equals: 'm'.
+	| tmp1 tmp2 |
+	tmp1 := MyKnight black.
+	tmp2 := MyChessSquare color: MyBlackSquare new.
+	self assert: (tmp2 renderPiece: tmp1) equals: 'm'
 ]
 
 { #category : 'tests' }
-MyKnightTest >> testRenderBlackKnightOnWhiteSquare [ 
-	"render knight according to its colour
-	 must render 'M' if it is a black knight on a hite square"
+MyKnightTest >> testRenderBlackKnightOnWhiteSquare [
 
-	| blackKnight aSquare |
-	blackKnight := MyKnight black.
-	
-	aSquare := MyChessSquare color: MyWhiteSquare new.
-	self assert: (aSquare renderPiece: blackKnight) equals: 'M'.
+	| tmp1 tmp2 |
+	tmp1 := MyKnight black.
+	tmp2 := MyChessSquare color: MyWhiteSquare new.
+	self assert: (tmp2 renderPiece: tmp1) equals: 'M'
 ]
 
 { #category : 'tests' }
 MyKnightTest >> testRenderWhiteKnightOnABlackSquare [
-	"render knight according to its colour
-	 must render 'n' if it is a white knight on a black square"
 
-	| whiteKnight aSquare |
-	whiteKnight := MyKnight white.
-	
-	aSquare := MyChessSquare color: MyBlackSquare new.
-	self assert: (aSquare renderPiece: whiteKnight) equals: 'n'.
+	| tmp1 tmp2 |
+	tmp1 := MyKnight white.
+	tmp2 := MyChessSquare color: MyBlackSquare new.
+	self assert: (tmp2 renderPiece: tmp1) equals: 'n'
 ]
 
 { #category : 'tests' }
 MyKnightTest >> testRenderWhiteKnightOnAWhiteSquare [
-	"render knight according to its colour
-	 must render 'N' if it is a white knight on a white square"
 
-	| whiteKnight aSquare |
-	whiteKnight := MyKnight white.
-	
-	aSquare := MyChessSquare color: MyWhiteSquare new.
-	self assert: (aSquare renderPiece: whiteKnight) equals: 'N'.
+	| tmp1 tmp2 |
+	tmp1 := MyKnight white.
+	tmp2 := MyChessSquare color: MyWhiteSquare new.
+	self assert: (tmp2 renderPiece: tmp1) equals: 'N'
 ]
