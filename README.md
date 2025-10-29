@@ -291,7 +291,7 @@ MyKing >> renderTable
 Using table dispatch allows us to have less subclasses and methods, it is more data-oriented.
 Since we didn't learn how to make table dispatch yet, I didn't commit the code to avoid breaking the code again.
 
-### Add pawn promotion
+### Add pawn promotion (Lan)
 
 **Goal:** Practice code understanding and debugging
 
@@ -306,4 +306,40 @@ Questions and ideas that can help you in the process:
 - What tools help you finding the right place to put this new code?
 - How can you find documentation and help to understand the graphical part that will implement, for example, a pop-up?
 - The bot will not need a UI, how would you make it work without breaking the other existing code?
+
+### Design Pattern used:
+- Here, I implimented Strategy Pattern to execute my Promotion Strategy.
+### Promotion Process
+1. Pawn reachs back rank ($1 or $8) ```MyPiece >> moveTo: aSquare  ```
+2. Check if promotion needed. ```MyPiece >> checkForPromotion ``` -> Pawn overrides ```MyPawn >> checkForPromotion```
+3. A Pawn should be promoted. Is it reached the promotion rank? (White Pawn at $8 and Black Pawn at $1)
+4. If YES, the Chess Game will promote the Pawn ``` promotePawn: aPawn at: aSquare ```
+5. Ask strategy for piece type ```self promotionPawn promotePawn: aPawn``` -> Call UIPromotion ``` promotionPawn := MyUIPromotion new``` -> Returns MyQueen/MyRook/MyBishop/MyKnight
+6. Create piece with correct color 
+7. Put a newpiece correspondance at the current square ``` board at: aSquare name put: newPiece.```
+8. Record the moves ```recordPromotion: aPawn to: newPiece at: aSquare```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
