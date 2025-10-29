@@ -2,15 +2,6 @@
 
 This is a chess game for Pharo based on Bloc, Toplo and Myg.
 
-## What is this repository really about
-
-The goal of this repository is not to be a complete full blown game, but a good enough implementation to practice software engineering skills:
- - testing
- - reading existing code
- - refactorings
- - profiling
- - debugging
-
 ## Getting started
 
 ### Getting the code
