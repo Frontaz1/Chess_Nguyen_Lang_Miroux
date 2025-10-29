@@ -92,8 +92,20 @@ UML :
 
 ![UML MyNilPiece](https://github.com/Frontaz1/Chess_Nguyen_Lang_Miroux/blob/main/uml/uml-NullObject-MyNilPiece.png)
 
-Maintenant dans notre code au lieu de verifier qu'un square possède une piece nous pouvons simplement faire appel a la méthode isPiece sur n'importe quelle pièce car maintenant il n'y a plus de Nil.
-Before the refactor, squares used nil to represent empty contents:
+Before the refactor, squares used nil to represent empty contents(With no piece) :
+Before : 
+```
+MyChessSquare >> emptyContents
+	self contents: nil.
+```
+After : 
+```
+MyChessSquare >> emptyContents
+	"Vide la case, on la remplace avec une NilPiece"
+	self contents: MyNilPiece new.
+```
+
+Now in our code, instead of checking that a square has a piece, we can simply call `isPiece` method on any piece because now there is no more Nil.
 
 Before : 
 ```
@@ -135,7 +147,7 @@ Additionally, during board initialization squares, every square now starts with 
 
 Last thing for example in MyChessSquare the method emptyContents set contents with a `MyNilPiece` and not `nil` now 
 
-Dans l'ensemble nous voyons que grâce à ce Design, nous appliquons du polymorphisme et donc on n'a plus besoin de vérifier si nil ou non.
+Overall, we see that thanks to this Design, we apply polymorphism and therefore we no longer need to check if nil or not.
 
 #### MyNilSquare 
 
