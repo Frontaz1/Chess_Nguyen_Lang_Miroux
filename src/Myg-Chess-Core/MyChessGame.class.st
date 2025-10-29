@@ -151,7 +151,7 @@ MyChessGame >> play [
 ]
 
 { #category : 'playing' }
-MyChessGame >> promotePawn: aPawn at: aSquare [
+MyChessGame >> promotePawn: aPawn at: aSquare [ 
     | pieceClass newPiece |
     pieceClass := self promotionPawn promotePawn: aPawn.
     newPiece := pieceClass perform: (aPawn isWhite 
@@ -183,7 +183,7 @@ MyChessGame >> recordMovementOf: aPiece to: aSquare [
 	prefix := currentPlayer isWhite
 		          ifTrue: [ moveCount asString , '.' ]
 		          ifFalse: [ '' ].
-	moves add: prefix , ' ' , (aSquare renderPiece: aPiece) , aSquare name.
+	moves add: prefix , ' ' , aPiece id , aSquare name.
 	
 	movesText := String streamContents: [ :stream |
 		| currentLine |
@@ -226,4 +226,14 @@ MyChessGame >> recordPromotion: aPawn to: newPiece at: aSquare [
         stream nextPutAll: currentLine
     ].
     movesLabel text: movesText
+]
+
+{ #category : 'as yet unclassified' }
+MyChessGame >> useBotPromotion [
+	self promotionPawn: MyBotPromotion new.
+]
+
+{ #category : 'as yet unclassified' }
+MyChessGame >> useUIPromotion [
+	self promotionPawn: MyUIPromotion new.
 ]

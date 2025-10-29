@@ -16,48 +16,36 @@ MyQueenTests >> testIsPiece [
 
 { #category : 'tests' }
 MyQueenTests >> testRenderBlackQueenOnABlackSquare [
-	"render queen according to its colour
-	 must render 'w' if it is a black queen on a black square"
 
-	| blackQueen aSquare |
-	blackQueen := MyQueen black.
-	
-	aSquare := MyChessSquare color: MyBlackSquare new.
-	self assert: (aSquare renderPiece: blackQueen) equals: 'w'.
+	| tmp1 tmp2 |
+	tmp1 := MyQueen black.
+	tmp2 := MyChessSquare color: MyBlackSquare new.
+	self assert: (tmp2 renderPiece: tmp1) equals: 'w'
 ]
 
 { #category : 'tests' }
 MyQueenTests >> testRenderBlackQueenOnAWhiteSquare [
-	"render queen according to its colour
-	 must render 'W' if it is a black queen on a white square"
 
-	| blackQueen aSquare |
-	blackQueen := MyQueen black.
-	
-	aSquare := MyChessSquare color: MyWhiteSquare new.
-	self assert: (aSquare renderPiece: blackQueen) equals: 'W'.
+	| tmp1 tmp2 |
+	tmp1 := MyQueen black.
+	tmp2 := MyChessSquare color: MyWhiteSquare new.
+	self assert: (tmp2 renderPiece: tmp1) equals: 'W'
 ]
 
 { #category : 'tests' }
 MyQueenTests >> testRenderWhiteQueenOnABlackSquare [
-	"render queen according to its colour
-	 must render 'q' if it is a white queen on a black square"
 
-	| whiteQueen aSquare |
-	whiteQueen := MyQueen white.
-	
-	aSquare := MyChessSquare color: MyBlackSquare new.
-	self assert: (aSquare renderPiece: whiteQueen) equals: 'q'.
+	| tmp1 tmp2 |
+	tmp1 := MyQueen white.
+	tmp2 := MyChessSquare color: MyBlackSquare new.
+	self assert: (tmp2 renderPiece: tmp1) equals: 'q'
 ]
 
 { #category : 'tests' }
 MyQueenTests >> testRenderWhiteQueenOnAWhiteSquare [
-	"render queen according to its colour
-	 must render 'Q' if it is a white queen on a white square"
 
-	| whiteQueen aSquare |
-	whiteQueen := MyQueen white.
-	
-	aSquare := MyChessSquare color: MyWhiteSquare new.
-	self assert: (aSquare renderPiece: whiteQueen) equals: 'Q'.
+	| tmp1 tmp2 |
+	tmp1 := MyQueen white.
+	tmp2 := MyChessSquare color: MyWhiteSquare new.
+	self assert: (tmp2 renderPiece: tmp1) equals: 'Q'
 ]

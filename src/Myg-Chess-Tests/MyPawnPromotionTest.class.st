@@ -19,6 +19,70 @@ MyPawnPromotionTest >> testBlackPawnAtRank1HasReachedPromotionRank [
 ]
 
 { #category : 'tests' }
+MyPawnPromotionTest >> testBotPromotionReturnsQueen [
+	|promotion pawn check|
+	promotion := MyBotPromotion new.
+	pawn := MyPawn white.
+	
+	check := promotion promotePawn: pawn.
+	
+	self assert: check equals: MyQueen
+
+]
+
+{ #category : 'tests' }
+MyPawnPromotionTest >> testDefaultPromotion [
+|board|
+board:= MyChessGame freshGame.
+
+	
+	self assert: board promotionPawn class equals: MyUIPromotion.
+
+
+]
+
+{ #category : 'tests' }
+MyPawnPromotionTest >> testMultiplesPromotionsInABoard [
+    "Same promotion can be reused many times in a board"
+    | promotion pawn1 pawn2 result1 result2 |
+    promotion := MyBotPromotion new.
+    pawn1 := MyPawn white.
+    pawn2 := MyPawn black.
+    
+    result1 := promotion promotePawn: pawn1.
+    result2 := promotion promotePawn: pawn2.
+    
+    self assert: result1 equals: MyQueen.
+    self assert: result2 equals: MyQueen
+]
+
+{ #category : 'tests' }
+MyPawnPromotionTest >> testSetUpBotPromotion [
+|board|
+
+board:= MyChessGame freshGame.
+
+board useBotPromotion.
+	
+	self assert: board promotionPawn class equals: MyBotPromotion.
+
+
+]
+
+{ #category : 'tests' }
+MyPawnPromotionTest >> testSwitchingPromotion [
+    | board |
+    board:= MyChessGame freshGame.
+    
+    "MyUIPromotion as default"
+    self assert: board promotionPawn class equals: MyUIPromotion .
+    
+    "Switching to MyBotPromotion"
+    board useBotPromotion.
+    self assert: board promotionPawn class equals: MyBotPromotion .
+]
+
+{ #category : 'tests' }
 MyPawnPromotionTest >> testWhitePawnAtRank7HasNotReachedPromotionRank [
     "White Pawn at rank 7 not yet promotion rank"
     | whitePawn board square |
