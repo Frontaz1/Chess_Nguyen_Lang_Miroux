@@ -151,7 +151,7 @@ MyChessGame >> play [
 ]
 
 { #category : 'playing' }
-MyChessGame >> promotePawn: aPawn at: aSquare [
+MyChessGame >> promotePawn: aPawn at: aSquare [ 
     | pieceClass newPiece |
     pieceClass := self promotionPawn promotePawn: aPawn.
     newPiece := pieceClass perform: (aPawn isWhite 
@@ -229,6 +229,11 @@ MyChessGame >> recordPromotion: aPawn to: newPiece at: aSquare [
 ]
 
 { #category : 'as yet unclassified' }
-MyChessGame >> useBotStrategy [ 
-	self promotionPawn: MyBotPromotion.
+MyChessGame >> useBotPromotion [
+	self promotionPawn: MyBotPromotion new.
+]
+
+{ #category : 'as yet unclassified' }
+MyChessGame >> useUIPromotion [
+	self promotionPawn: MyUIPromotion new.
 ]
