@@ -473,10 +473,10 @@ space show.
 ```
 
 ### Difficulites
-The hardest part for me is to read the code and to find the logic moving of aPiece, aPawn, the logic initializing a ChessGame. 
-I have read the expression to open the board game, then take a look at the MyChessGame class, find the move logic method and draw a link to what makes sense. If a pawn moves, what happened? What is the condition for promotion? Of WhitePawn? Of BlackPawn?
-Also, I have to read documents to understand what is a **Strategy Pattern** and **Template Method**. Why it is better using Strategy Pattern for a promotion pawn than a Template Method? If I used Template Method what happened? 
-With the UIPromotion, I have read an UI specified book like **The Spec UI framework** but finally I found the exemple in **Pharo 9 by Example** is enough and better to apply for my case.
+- The hardest part for me is to read the code and to find the logic moving of aPiece, aPawn, the logic initializing a ChessGame. 
+- I have read the expression to open the board game, then take a look at the MyChessGame class, find the move logic method and draw a link to what makes sense. If a pawn moves, what happened? What is the condition for promotion? Of WhitePawn? Of BlackPawn?
+- Also, I have to read documents to understand what is a **Strategy Pattern** and **Template Method**. Why it is better using Strategy Pattern for a promotion pawn than a Template Method? If I used Template Method what happened? 
+- With the UIPromotion, I have read an UI specified book like **The Spec UI framework** but finally I found the exemple in **Pharo 9 by Example** is enough and better to apply for my case.
 
 ### Tests
 These are some methods in class MyPawnPromotionTest
