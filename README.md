@@ -362,7 +362,7 @@ Questions and ideas that can help you in the process:
 ### Design Pattern used:
 - Here, I implimented Strategy Pattern to execute my Promotion Strategy. This design pattern reduces code complexity and conditions. The strategy allows runtime switching while ensure not breaking the code, takes advantage of existing inherited classes and its behavior changes independently of game state.
 - Besides, I have used the Templated Method for a pawn to override its father. MyPawn class here is inherited the method checkForPromotion from its abstract class MyPiece and will override it by create its own promotion. Combined with the existing codes, I have this fully UML of Promotion Pawn:
-  <img width="608" height="595" alt="image" src="https://github.com/user-attachments/assets/0947299e-1344-45fb-8d37-2b1a479544cf" />
+ ![chess](https://github.com/user-attachments/assets/10e3e170-1dda-4ed5-8f10-bfd19e88bdc6)
 
 ### Promotion Process
 1. Pawn reachs back rank ($1 or $8) ```MyPiece >> moveTo: aSquare  ```
@@ -374,9 +374,66 @@ Questions and ideas that can help you in the process:
 7. Put a newpiece correspondance at the current square ``` board at: aSquare name put: newPiece.```
 8. Record the moves ```recordPromotion: aPawn to: newPiece at: aSquare```
 
-
-
-
+### Explaining
+- First, I created a new abstract class **MyPromotionPawn** for my stragegy. This class has a method **promotePawn:** which is overrided by its subclass. I created two subclasses **MyBotPromotion** and **MyUIPromotion**
+```
+MyBotPromotion >> promotePawn: aPawn [
+	^ MyQueen
+```
+=> The Bot Strategy automatically returns Queen, which is the strongest piece.
+```
+MyUIPromotion >> promotePawn: aPawn [
+	"show ui dialog and let the user choose the piece"
+	| choice |
+	choice := UIManager default
+		chooseFrom: #(Queen Rook Knight Bishop)
+		message: 'Congratulations! You have reached the last square of the chessboard.
+		Choose a piece you wish to be play as:'.
+		
+	^ choice caseOf: { 
+	[ 1 ] -> MyQueen.
+	[ 2] -> MyRook.
+	[ 3 ] -> MyKnight.
+	[ 4 ] -> MyBishop } otherwise: MyQueen 
+]
+```
+=> The UI Promotion shows a popup for the user to choose which piece they want to be next. There are four options: Queen/Rook/Knight/Bishop. To know how to create a user interface, I have consulted the book Pharo 9 by example, part 16.9 Interactors.
+- So, when will a Pawn be promoted? When it hits the back rank. A White pawn **shouldBePromoted** when its rank is 8, on the contrary a Black Pawn **shouldBePromoted** when its rank is 1. Therefore, I move to MyPawn class and created a method check if the Pawn has reached promotion rank.
+```
+MyPawn >> hasReachedPromotionRank [
+    "Check if pawn has reached the promotion rank"
+    ^ self isWhite
+        ifTrue: [square file = $8]
+        ifFalse: [square file = $1]
+]
+```
+If a Pawn **hasReachedPromotionRank**, it **shouldBePromoted**
+```
+MyPawn >> shouldBePromoted [
+    "A pawn should be promoted when it reaches the back rank"
+    ^ self hasReachedPromotionRank
+]
+```
+- Then, I created a method **checkForPromotion** to check for promotion after each moves. The move logic is in the method **moveTo: aSquare** of MyPawn's superclass MyPiece, that means every piece can move and hit the back rank, but only the Pawn can be promoted. Here, I implimented the Template Method Design Pattern for the MyPawn class to override the method **checkForPromotion** of its superclass MyPiece
+```
+MyPiece >> checkForPromotion [
+    "Default: do nothing. Pawns will override this"
+    ^ self
+]
+MyPiece >> moveTo: aSquare [
+...
+^ self checkForPromotion
+]
+```
+MyPawn overrides this
+```
+MyPawn >> checkForPromotion [
+    "Promote pawn if it reached the back rank"
+    self shouldBePromoted ifTrue: [
+        self board game promotePawn: self at: square
+    ]
+]
+```
 
 
 
