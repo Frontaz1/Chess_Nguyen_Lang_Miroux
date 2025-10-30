@@ -434,13 +434,59 @@ MyPawn >> checkForPromotion [
     ]
 ]
 ```
+### Extension: promotePawn: aPawn at: aSquare
+```
+MyChessGame >> promotePawn: aPawn at: aSquare [
+	...
+    pieceClass := self promotionPawn promotePawn: aPawn.
+    ....
+```
+With the message `self promotionPawn promotePawn: aPawn.`, we call a **promotionPawn** to take its strategy (Bot or UI). This is the extensibility point, which means we can add more strategy after to the Strategy Class (here is the MyPromotionPawn class) and call to get it without breaking **promotePawn: aPawn at: aSquare** method
 
+- To make a ChessGame can call a Promotion Strategy, I have to initialize and create methods getter/setter for a Promotion in the MyChessGame. I set default Promotion here is MyUIPromotion.
+```
+MyChessGame >> initialize [
+...
+promotionPawn := MyUIPromotion new
+]
+MyChessGame >> promotionPawn [
+	^ promotionPawn ifNil: [ promotionPawn := MyUIPromotion new ]
+]
 
+{ #category : 'accessing' }
+MyChessGame >> promotionPawn: aStrategy [
+	promotionPawn := aStrategy	
+]
+```
+- Finally, I create **recordPromotion: aPawn to: newPiece at: aSquare** to record all the moves of my promotion. This method is based on this existed method **recordMovementOf: aPiece to: aSquare**
+- I also add two shortcuts: **useBotPromotion** and **useUIPromotion** for easier calling in Playground.
+### Running the Bot promotion (because the default promotion is UIPromotion)
+```smalltalk
+board := MyChessGame freshGame.
+board useBotPromotion.
+board size: 800@600.
+space := BlSpace new.
+space root addChild: board.
+space pulse.
+space resizable: true.
+space show.
+```
 
+### Difficulites
+The hardest part for me is to read the code and to find the logic moving of aPiece, aPawn, the logic initializing a ChessGame. 
+I have read the expression to open the board game, then take a look at the MyChessGame class, find the move logic method and draw a link to what makes sense. If a pawn moves, what happened? What is the condition for promotion? Of WhitePawn? Of BlackPawn?
+Also, I have to read documents to understand what is a **Strategy Pattern** and **Template Method**. Why it is better using Strategy Pattern for a promotion pawn than a Template Method? If I used Template Method what happened? 
+With the UIPromotion, I have read an UI specified book like **The Spec UI framework** but finally I found the exemple in **Pharo 9 by Example** is enough and better to apply for my case.
 
-
-
-
+### Tests
+These are some methods in class MyPawnPromotionTest
+- testDefaultPromotion -> returns MyUIPromotion
+- testMultiplesPromotionsInABoard -> 2 pieces can be promoted simultaneously in a board
+- testSetUpBotPromotion -> board useBotPromotion -> use Bot Promotion at first.
+- testSwitchingPromotion -> check if MyUIPromotion as default and after that we can switch to MyBotPromotion
+- testWhitePawnAtRank7HasNotReachedPromotionRank -> Pawn at rank 7 has not meet the condition to be promoted
+- testWhitePawnAtRank8HasReachedPromotionRank -> Pawn at rank 8 has meet the condition to be promoted
+- testWhitePawnAtRank8ShouldBePromoted -> a Pawn should be promoted when it reaches the back rank
 
 
 
