@@ -360,7 +360,10 @@ Questions and ideas that can help you in the process:
 - The bot will not need a UI, how would you make it work without breaking the other existing code?
 
 ### Design Pattern used:
-- Here, I implimented Strategy Pattern to execute my Promotion Strategy.
+- Here, I implimented Strategy Pattern to execute my Promotion Strategy. This design pattern reduces code complexity and conditions. The strategy allows runtime switching while ensure not breaking the code, takes advantage of existing inherited classes and its behavior changes independently of game state.
+- Besides, I have used the Templated Method for a pawn to override its father. MyPawn class here is inherited the method checkForPromotion from its abstract class MyPiece and will override it by create its own promotion. Combined with the existing codes, I have this fully UML of Promotion Pawn:
+  <img width="608" height="595" alt="image" src="https://github.com/user-attachments/assets/0947299e-1344-45fb-8d37-2b1a479544cf" />
+
 ### Promotion Process
 1. Pawn reachs back rank ($1 or $8) ```MyPiece >> moveTo: aSquare  ```
 2. Check if promotion needed. ```MyPiece >> checkForPromotion ``` -> Pawn overrides ```MyPawn >> checkForPromotion```
